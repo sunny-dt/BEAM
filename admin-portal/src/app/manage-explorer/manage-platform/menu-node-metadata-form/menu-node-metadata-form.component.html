@@ -1,0 +1,113 @@
+<mat-toolbar>
+    <span>{{service.form.controls['id'].value ? "Update Node Metadata" : "Add Node Metadata"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <mat-dialog-content>
+      <mat-card class="card"  style="padding:16px">
+
+          <form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+              <mat-grid-list cols="2" rowHeight="700">
+                <mat-grid-tile>
+                  <div class="controls-container">
+            
+                    <input type="hidden" formControlName="id">
+                    
+          
+                    <mat-form-field >
+                        <mat-label>DESCRIPTION</mat-label>
+                        <textarea matInput
+                                  
+                                  formControlName="description"
+                                  cdkTextareaAutosize
+                                  #autosize="cdkTextareaAutosize"
+                                  cdkAutosizeMinRows="1"
+                                  cdkAutosizeMaxRows="10"></textarea>
+                          <mat-error *ngIf="service.form.controls['description'].hasError('required')">Description is required</mat-error>
+          
+                      </mat-form-field>
+  
+                      <mat-form-field >
+                          <mat-label>SEARCH KEYWORDS <br>(Please use single space as a separator)</mat-label>
+                          <textarea matInput
+                                    cdkTextareaAutosize
+                                     #autosize="cdkTextareaAutosize"
+                                    cdkAutosizeMinRows="1"
+                                     cdkAutosizeMaxRows="10"
+                                    formControlName="search_keywords"></textarea>
+                            <!-- <mat-error *ngIf="service.form.controls['search_keywords'].hasError('required')">Search Keywords are required</mat-error> -->
+              
+                      </mat-form-field>
+          
+          
+                    <mat-form-field>
+                        <input formControlName="url" matInput placeholder="URL*">
+                        <!-- <mat-error *ngIf="service.form.controls['url'].hasError('required')">Url is required</mat-error> -->
+                    </mat-form-field>
+
+                    <!-- <mat-form-field>
+                      <input formControlName="keywords" matInput placeholder="Search Keywords*">
+                      <mat-error *ngIf="service.form.controls['keywords'].hasError('required')">Search Keywords required</mat-error>
+                    </mat-form-field>-->
+          
+                    <mat-form-field>
+                        <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger1"></mcc-color-picker>
+                      <input matInput mccColorPickerOrigin #trigger1="mccColorPickerOrigin" formControlName="tile_bg_color" placeholder="Tile Bg Color*"/>
+                      <mat-error *ngIf="service.form.controls['tile_bg_color'].hasError('required')">Tile Bg Color is required</mat-error>
+                    </mat-form-field>
+          
+          
+                    <mat-form-field>
+                        <mcc-color-picker mccConnectedColorPicker [mccConnectedColorPickerOrigin]="trigger2"></mcc-color-picker>
+                      <input matInput mccColorPickerOrigin #trigger2="mccColorPickerOrigin" formControlName="tile_fg_color" placeholder="Tile Fg Color*"/>
+                      <mat-error *ngIf="service.form.controls['tile_fg_color'].hasError('required')">Tile Fg Color is required</mat-error>
+                    </mat-form-field>
+                   
+                    
+                  </div>
+                </mat-grid-tile>
+          
+                <mat-grid-tile>
+                  <div class="controls-container">
+                      
+          
+                    <input
+                      style="display: none"
+                      type="file" (change)="onFileChanged($event)"
+                      #fileInput>
+          
+          
+                        <img *ngIf="showMenuNodeMetadataImage && !uploadingFile" [src]="imageURL" style="width: 100%;background-color: dimgrey" alt="image">
+          
+          
+                      <button *ngIf="!uploadingFile" style="margin-top:10px;margin-bottom:10px" (click)="fileInput.click()" mat-raised-button color="primary" type="button">{{service.form.controls['tile_image_filename'].value ? "Update Tile Image" : "Add Tile Image"}}</button>
+                      <mat-progress-spinner [hidden] = "!uploadingFile" [value] = "uploadedPercntValue" style="margin:0 auto" ></mat-progress-spinner>
+                  </div>
+                </mat-grid-tile>
+          
+              </mat-grid-list>
+          
+            </form>
+  
+      </mat-card>
+  
+  
+  </mat-dialog-content>
+  
+    <div class = "button-container">
+      <div class="button-row">
+          <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid || uploadingFile">Save</button>
+          <!-- <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid || uploadingFile" *ngIf="!service.form.controls['id'].value">Save and Add Another</button> -->
+        </div>
+    </div>
+  
+  
+  
+  
+  
+  

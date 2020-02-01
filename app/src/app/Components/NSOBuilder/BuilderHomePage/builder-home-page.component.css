@@ -1,0 +1,136 @@
+.inputCustomerIDLabel {
+
+    font-size: 14px;
+}
+  
+.customerId {
+
+    margin-top: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+inner {
+
+    margin-right:20px;
+    margin-left:20px;
+}
+
+.submit-btn {
+
+    margin-right: 25px;
+}
+
+.back-btn {
+
+    margin-right: 25px;
+}
+
+.matActions {
+
+    widows: 100%;
+}
+
+hr {
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(161, 161, 161);
+}
+
+.card>hr {
+
+    margin-right: -16px;
+    margin-left: -16px;
+}
+
+.text-right {
+
+    display: block;
+    margin-bottom: 0px;
+}
+
+.customerIDField:focus-within {
+
+    color: #4599C3;
+}
+
+.mat-card-actions {
+
+    margin-bottom: 8px !important;
+    margin-top: 0px !important;
+}
+
+body .ui-tooltip .ui-tooltip-text {
+
+    background-color: #ffffff;
+    color: #000000;
+    padding: 15px;
+    height: 91px;
+    width: 236px;
+    box-shadow: 0 0 17px 0 rgb(58, 60, 63);
+} 
+
+body .ui-tooltip.ui-tooltip-right .ui-tooltip-arrow {
+
+    border-right-color: #ffffff;
+    margin-top: -7px;
+    font-size: xx-large;
+    padding: -82px;
+}
+
+.backButton {
+
+    background: #EAEAEA; 
+    border-radius: 3px;
+}
+
+.backButton:hover {
+
+    background: rgb(184, 180, 180); 
+}
+
+.enable-submit-button {
+
+    background-color:#d3e5ec ; 
+    color: #20a5ce;
+    float: right;
+    cursor: pointer;
+}
+
+.enable-submit-button:hover {
+
+    background-color:#20a5ce; 
+    color: #fdfdfd;
+}
+
+.selectCustomer {
+
+    margin-top: 15px;
+  }
+
+@media screen and (max-width: 580px) {
+
+    .submit-btn {
+
+        margin-right: 0px;
+        margin-bottom: 2%;
+    } 
+}
+
+::ng-deep .mat-select-panel {
+
+    min-width: inherit !important;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+   ::ng-deep .mat-select-panel {
+
+        min-width: inherit !important;
+      }
+      ::ng-deep .cdk-overlay-pane {
+          
+        display: block;
+      }
+}

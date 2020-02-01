@@ -1,0 +1,150 @@
+<div class="container-fluid">
+    <mat-card class="builder-card"  style="padding: 0px;left: 0;right: 0;margin: auto;margin-bottom: 100px;">
+        <div class="inner">
+            <div class="find-config-chamber-header">
+
+                <div class="header-back-arrow-block">
+                    <i id="homePageBack" class="fa fa-arrow-left left-arrow" (click)="goToPreviousPage()"></i>
+                </div>
+                <div  class="header-config-title-block">
+                    
+                    <!-- <input class="header-config-title" spellcheck="false" #configTitle (keyup)="onKeyUp($event)" maxlength="50"> 
+                    <i class="fa fa-pencil" style="font-size: 20px;color: white;"></i> -->
+
+                    <input id="cofigTitleInput" style="width: 100%;" *ngIf="isEditHeader" class="header-config-title" [(ngModel)]="headerTitle" spellcheck="false" #configTitle (keyup)="onKeyUp($event)" (focusout)="outEditNSOHeaderfocus()" maxlength="50">  
+                    <div  *ngIf="!isEditHeader">
+                        <label style="color:white;">{{headerTitle}}</label>
+                        <i id="cofigTitleEdit" [hidden]="isEditableTitle" class="fa fa-pencil" style="font-size: 20px;color: white; cursor: pointer; margin-left: 2%" (click)="editHeaderClick()" ></i>
+                    </div>
+                </div>
+
+                <span style="width: 45%; color: rgb(207, 206, 206);"><h5>Audit Flow ({{headerPlatformName}})</h5></span>
+                <div class="header-check-icon-block">
+
+                    <i *ngIf="!isEnableCheckMark" class="fa fa-check" style="font-size: 20px;color: #b1b0b0;cursor: default;"></i>
+                   <div *ngIf="isEnableCheckMark">
+                       <i *ngIf="!isHoverCheckMark" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()" class="fa fa-check fa-check-hover" style="font-size: 20px;color: white;cursor: pointer;"   matTooltip="Continue with current configuration."
+                            matTooltipPosition="right"  matTooltipClass="custom-tool-tip-theme" (click)="continueWithCurrentConfig()"></i>
+                        <a id="continueNSOButton" *ngIf="isHoverCheckMark" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()" matTooltipPosition="right" matTooltip="Continue with current configuration."  matTooltipClass="custom-tool-tip-theme" (click)="continueWithCurrentConfig()">
+                            <img class="CheckMark-image" src="assets/ok-check1.png"/></a>
+                    </div> 
+    
+                </div>
+            </div>
+
+            <div class="container-fluid" style="background-color: #f4f4f4;">
+                <div class="row col-xs-12">
+                    <div class="col-md-4 facetsListBlock" style="background: white">
+                        
+                        <div id="sidenavDrawer" class="sidenav">
+                                    <div class="navigation-drawer-header">
+                                        <span class="sideheadername">Chamber {{selectedFecetName}}</span>
+                                        <div style="float: right">
+                                        <span [matMenuTriggerFor]="menu" style="font-size: 14px;width: 100%;cursor: pointer">
+                                        <mat-icon hidden class="drawer-header-content-menu-icon">more_vert</mat-icon></span>
+                                        <mat-menu #menu="matMenu" xPosition="before">
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;">assas</button>
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;">assas</button>
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;">assas</button>
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;">assas</button>
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;">assas</button>
+                                        </mat-menu> 
+                                        </div>
+                                        <a id="navigationDrawerCloseButton" class="closebtn" (click)="closeNavigationDrawer()">&times;</a>  
+                                    </div>
+                            <div class="navigation-drawer-body" style="margin-top: 60px;">
+                                <mat-accordion>
+                                    <mat-expansion-panel style="margin-left: -15px;margin-right: -15px; padding-left: 3%;padding-right: 3%;box-shadow: 0 0 0 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);" [expanded]="true">
+                                        <mat-expansion-panel-header style="padding-right: 30px;">
+                                            <mat-panel-title>CHAMBER</mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                                                                
+                                            <form [formGroup]="findChamberForm">
+
+                                                <mat-form-field [hidden]="isSelectedABPositions" style="width: 100%;margin-bottom: 5px;"> 
+                                                        <input id="chamberSearchInput" #findChmberSearchInput type="text" placeholder="Search" matInput  [matAutocomplete]="auto" (keyup)="onSearchKeyUp($event)">
+                                                        <img  style="float: right; width: 20px; margin-top: -5%; cursor: pointer;position: relative;" src="assets/close@3x.png" (click)="findChmberSearchClear();">
+                                                        <mat-autocomplete #auto="matAutocomplete">
+                                                          <mat-option *ngFor="let searchExplorerChamber of searchExplorerChambersList.items" (click)="searchExplorerChamberClick(searchExplorerChamber);" [value]="searchExplorerChamber.chamber_name">
+                                                            {{searchExplorerChamber.chamber_name}} {{displayGotCode(searchExplorerChamber.got_code)}}
+                                                          </mat-option>
+                                                        </mat-autocomplete>
+                                                </mat-form-field>
+
+                                                <mat-form-field style="width: 100%; margin-bottom: 5px;"> 
+                                                    <mat-label>Select Chamber Family</mat-label>
+                                                    <mat-select id="selectChamberFamilyDropdown" name="Family" #selectChamberFamilyDropdown>
+                                                      <mat-option *ngFor="let family of explorerChambersFamily.items" (click)="selectedChamberFamilityItem(family)" [value]="family.name">
+                                                        {{family.name}}
+                                                      </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                                
+                                                  <mat-form-field style="width: 100%; margin-bottom: 5px;">
+                                                    <mat-label>Select Chamber</mat-label>
+                                                    <mat-select id="selectChamberDropdown" name="chamber" formControlName="findChamberFormControl">
+                                                        <mat-option *ngFor="let chamber of chambersByFamilyID.items" (click)="selectedChamberItem(chamber)" [value]="chamber.name">
+                                                        {{chamber.name}} {{displayGotCode(chamber.gotCode)}}
+                                                      </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                              </form>
+
+                                              <div *ngIf="!findChamberForm.valid; else enable">
+                                                    <button id="saveButton" type="button" [disabled]="!findChamberForm.valid" style="cursor: not-allowed;font-size: 17px;" 
+                                                    class="btn custom-button-width col-sm-12">Save</button>
+                                                </div>
+                                
+                                                <ng-template #enable>
+                                                    <button type="button" style="background-color:#4599C3 ; color: #d3e5ec;font-size: 17px;" [disabled]="!findChamberForm.valid"
+                                                        class="btn custom-button-width col-sm-12" (click)="submit()">Save</button>
+                                                </ng-template>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </div>
+
+                        <mat-accordion>
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="true">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>CHAMBERS</mat-panel-title>
+                                </mat-expansion-panel-header>
+                                      
+                                <mat-nav-list class="matNavListPadding">
+                                    <mat-list-item class="facetsmatListItem" *ngFor="let fecets of builderConfigFecets; let i=index"  (mouseover)="chamberListItemMouseover(i)" (mouseleave)="chamberListItemMouseLeave(i)">
+                                        <div class="facetsindexPosition" style="width: 5%; text-align: left;">{{fecets.facet_name}}</div>
+                                            <div style="width: 85%;text-align: left">
+                                                
+                                                <span  *ngIf="fecets.chamber_name === '';else delete"  [ngClass]="{'fecetNameColor': fecets.chamber_name === '' }">empty</span>
+                                              
+                                                <ng-template #delete>
+                                                    <span [ngStyle]="{'color':getSVGItemColor(fecets.chamber_name)}" >{{fecets.chamber_name}} {{displayGotCode(fecets.got_code)}}</span>
+                                                </ng-template>
+                                              
+                                            </div>
+                                                <span (click)="addChamber(fecets,i)" *ngIf="fecets.chamber_name === '';else notShow" [ngClass]="{'addIconColor': chamberListMouseoverPosition === i}" class="addIconInChamberList"><mat-icon id="addChamberIcon{{i}}">add</mat-icon></span>
+                                              
+                                                <ng-template #notShow>
+                                                    <span (click)="deleteChamber(i);" [ngClass]="{'addIconColor': chamberListMouseoverPosition === i}" class="addIconInChamberList"><mat-icon id="deleteChamberIcon{{i}}">delete</mat-icon></span>
+                                                </ng-template>
+                                              
+                                                <!-- <mat-divider></mat-divider> -->
+                                    </mat-list-item>           
+                                </mat-nav-list>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <mat-progress-spinner class="svgImageBlock" [value]="spinnerValue" [hidden]="!isSVGImageHidden" [mode]="spinnerMode"></mat-progress-spinner>
+
+                    <div class="col-md-8 svgImageBlock" [hidden]="isSVGImageHidden">
+                        <mat-icon  id="object" class="builderSVGIconCSS" svgIcon="productImageIcon">
+                            <object data="imageURL" type="image/svg+xml" hidden></object>
+                        </mat-icon>
+                    </div> <br/><br/><br/><br/>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
+

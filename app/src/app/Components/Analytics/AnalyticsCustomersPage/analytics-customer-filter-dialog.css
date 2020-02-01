@@ -1,0 +1,46 @@
+.filter-header {
+
+  width: 71%;
+  height:60px; 
+  background: #4599c5; 
+  padding-top: 18px;
+  display: flex;
+  position: fixed;
+  z-index: 1;
+}
+
+.chamberNameTitle {
+
+  background-color: #abd6e4 ;float: left;
+  padding: 8px;
+  font-size: 12px;
+  position: relative;
+  margin-right: 5px;
+  margin-bottom: 6px;
+  border-radius: 17px;
+  color: black;
+  cursor: pointer;
+}
+
+.doneBUtton {
+
+  float: right;
+  background: #4599c5; 
+  color: white;
+}
+
+.doneBUtton:hover {
+  
+  background-color: #0d6b9c;
+}
+
+.cancelButton {
+
+  right: 0;
+  margin: auto;
+}
+
+.cancelButton:hover {
+
+  background: rgb(184, 180, 180); 
+}

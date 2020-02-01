@@ -1,0 +1,89 @@
+<div class="container">
+
+  <mat-card class="card matCardTopMargin"  style="padding:16px">
+    <mat-tab-group class="mainBlock" (selectedTabChange)="getSelectedTab($event)"  mat-stretch-tabs>
+      <mat-tab [disabled]="showSVGImage" *ngFor="let product of finalProductsList; let i = index" [label]="product.product_code">
+        
+        <div class="row col-xs-12 ">
+
+          <div class="col-md-8 leftBlock">
+            
+            <mat-progress-spinner class="SVGIconCSS" [value]="spinnerValue" [hidden]="!showSVGImage" [mode]="spinnerMode"></mat-progress-spinner>
+
+            <mat-icon [hidden]="showSVGImage" id="object" class="SVGIconCSS" svgIcon="productImageIcon">
+              <object data="imageURL" type="image/svg+xml" hidden></object>
+            </mat-icon>
+          </div>
+
+          <div class="col-md-4 rightBlock">
+
+            <div class="row col-xs-12">
+
+              <div class="col-md-7" style="margin-top: auto;margin-bottom: auto;">
+
+                <h6 style="margin-top: 11px;font-size: 30px;color: #000000; font-weight: bold;">{{product.product_code}}</h6> 
+                <h6 style="font-size: 20px;color: #000000; font-weight: bold;">{{product.product_name}}</h6> 
+                </div>
+
+                <div class="col-md-5">
+                
+                  <div class="platformName">
+                    <h6 style="margin-top: 5px;margin-bottom: 0px;font-size: 14px;color: #000000;">{{product.platform_name}}</h6> 
+                    <span style="font-size: 12px;color: #999999;">Platform</span>
+                    </div>
+
+                    <div class="opIdName" style="margin-top: 14px;">
+                    <h6 style="margin-bottom: 0px;font-size: 14px;color: #000000;">{{selectedOPID}}</h6> 
+                    <span style="font-size: 12px;color: #999999;">OP ID</span>
+                      </div>
+                  </div>
+
+        </div>
+            <br>
+
+            <mat-divider></mat-divider>
+
+            <div style="position: relative" height="70%">
+              <div>
+                <mat-nav-list class="matNavListPadding">
+                  <mat-list-item class="matListItem" *ngFor="let configuration of configurationArray; let i=index" (mouseover)="productItemMouseOver(configuration, true)" (mouseleave)="productItemMouseOver(configuration, false)">
+
+                    <div class="indexPosition">
+                      {{configuration.facet_name}}
+                    </div>
+
+                    <div [ngStyle]="{'color':getSVGItemColor(configuration.chamber_name)}">
+                      {{configuration.chamber_name}}
+                    </div>
+                    <mat-divider></mat-divider>
+                  </mat-list-item>
+                </mat-nav-list>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <br>
+
+    <hr class="borderLine">
+
+    <div class="row matActions">
+
+      <mat-card-actions class= "mat-card-actions col-md-2" style="margin-left: 8px; margin-right: 8px; padding: 8px;">
+          <button class="btn col-sm-12" style="margin-right: 25px;background: #EAEAEA; border-radius: 3px;" type="button" (click)="print()">PRINT</button>
+      </mat-card-actions>
+
+      <mat-card-actions class="text-right col-md-10 mat-card-actions">
+        <button class="btn  col-sm-2" style="margin-right: 25px;background: #EAEAEA; border-radius: 3px;" type="button" (click)="backButton()">BACK</button>
+        <button class="btn  col-sm-2" style="margin-right: 25px;background: rgba(69,153,195,0.20); border-radius: 3px;color: #4599C3"(click)="submitButton()" type="button">DONE</button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+
+  <div style="margin-top: 6px;">
+    <span style="font-weight: 600;color: #4599c3;">NOTE:</span>
+    <span  style="margin-left: 10px;">The configuration that appears is an example of the G3 and may or may not be exactly the configuration you entered</span>
+  </div>
+</div>

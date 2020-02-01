@@ -1,0 +1,14 @@
+
+  
+  .dialog.active.focus,
+  .dialog.active:focus,
+  .dialog.focus,
+  .dialog.focus:active,
+  .dialog:active:focus,
+  .dialog:focus {
+      
+    outline: 0 !important;
+    outline-offset: 0  !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none  !important;
+  }

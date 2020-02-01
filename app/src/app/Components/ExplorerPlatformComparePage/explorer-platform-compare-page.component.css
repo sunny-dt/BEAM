@@ -1,0 +1,106 @@
+.platform-compare-results-page-body {
+
+    background-color: #f4f4f4;
+}
+
+.platform-compare-results-body {
+
+    margin-top: 40px;
+    padding-left: 8%;
+    padding-right: 5%;
+    margin-bottom: 5%;
+}
+
+.platform-compare-header-banner-block {
+
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.platform-compare-header-banner-title {
+
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    font-size: 28px
+}
+
+.platform-compare-item-title {
+
+    font-size: 26px;
+}
+
+.platform-compare-items-table {
+  
+    border-collapse: separate;  
+    /* border-spacing: 1em .5em; */
+    border-spacing: 50px 15px;
+}
+
+.platform-compare-table-column {
+
+    width: 280px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2) ;
+    vertical-align: top;
+    padding-top: 10px;
+}
+
+.platform-compare-items-table-titles {
+
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8)
+}
+
+.platform-compare-items-table-titles-value {
+
+    width: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    overflow:hidden;
+    font-size: 20px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.6);
+    cursor: default;
+}
+
+.platform-compare-sticky {
+    /* / background: red; / */
+    background-color: #ffffff;
+    /* box-shadow: 0 3px 12px 0 rgba(0,0,0,.08); */
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 14px 3px rgba(0, 0, 0, 0.12), 0 8px 10px 1px rgba(0, 0, 0, 0.14);
+    position: fixed;
+    top: 60px;
+    height: 160px;
+    width: 1000% !important;
+}
+
+.stricky-explore-button {
+
+    font-size: 14px;
+    color: #ffffff;
+    min-height: 40px;
+    width: 84px;
+    border-radius: 5px;
+    background-color: #4599c3;
+    padding-top: 12px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}
+
+.platformExcelDownloadButton {
+
+    background-color: #4599c3;
+    margin-left: 50px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    outline: 0 !important;
+}

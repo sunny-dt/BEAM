@@ -1,0 +1,85 @@
+<div class="mat-elevation-z8">
+
+  <div class="search-div">
+
+    <mat-form-field class="search-form-field" floatLabel="never">
+
+      <input disabled matInput placeholder="Metadata" #input autocomplete="off">
+
+    </mat-form-field>
+      <span *ngIf="metadataService.metadataExists == false" class="searchbar-createbtn-spacing">
+          <button id="addMetadataButton" mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>Add Metadata</button>
+      </span>
+
+  </div>
+
+  <mat-table [dataSource]="dataSource" >
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef  >ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="text">
+      <mat-header-cell *matHeaderCellDef  >DESCRIPTION</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.text }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="search_keywords">
+      <mat-header-cell *matHeaderCellDef >SEARCH KEYWORDS</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.search_keywords }}</mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef  >URL</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.url}}</mat-cell>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef = "let row; let i = index;">
+
+          <button id="editMetadataButton{{i}}" class="left-right-spacing" mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+
+          <button id="deleteMetadataButton{{i}}" class="left-right-spacing"  mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+
+        </mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="4">Loading...</mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noRecords">
+        <mat-footer-cell *matFooterCellDef colspan="4">No Records found</mat-footer-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || metadataService.metadataExists}"></mat-footer-row>
+  </mat-table>
+
+<!--
+  <mat-paginator [length]="1" [pageSize]="20"
+                   [pageSizeOptions]="[6, 10, 20]" [showFirstLastButtons]="true"></mat-paginator> -->
+
+</div>
+
+<div class="mat-elevation-z8" *ngIf="metadataService.metadataExists == true">
+  <app-metadata-media-list></app-metadata-media-list>
+</div>
+
+<div class="mat-elevation-z8" *ngIf="metadataService.metadataExists == true">
+  <app-metadata-attr-value-list></app-metadata-attr-value-list>
+</div>
+
+
+
+
+

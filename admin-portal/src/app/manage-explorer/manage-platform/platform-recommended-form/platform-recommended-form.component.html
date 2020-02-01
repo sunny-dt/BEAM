@@ -1,0 +1,82 @@
+<mat-toolbar>
+  <span>{{service.form.controls['id'].value ? "Update Platform-Recommended" : "New Platform-Recommended"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+  <form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="360">
+      <mat-grid-tile>
+        <div class="controls-container">
+  
+          <input type="hidden" formControlName="id">
+          <input type="hidden" formControlName="ui_type">
+          <input type="hidden" formControlName="image_link">
+          <input type="hidden" formControlName="image_filename">
+          <mat-form-field>
+            <mat-label>Linked Element Type</mat-label>
+            <mat-select    (selectionChange)="onLinkableElementTypesSelectionChange($event.value)" formControlName="linked_element_type">
+              <mat-option  *ngFor="let type of linkableElementTypes;let selectedPosition=index" [value]="type.name">{{type.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+              <mat-label>Linked Element</mat-label>
+              <mat-select [disabled]="disableLinkableElementSelection"  (selectionChange)="onLinkableElementSelectionChange($event.value)" formControlName="linked_element_id">
+                <mat-option  *ngFor="let element of currentLinkableElements;let selectedPosition=index" [value]="element.id">{{element.name}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="type_title" matInput value="RECOMMENDED" placeholder="Type Title*">
+            <mat-error *ngIf="service.form.controls['type_title'].hasError('required')">Type title is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+              <input formControlName="title" matInput placeholder="Title*">
+              <mat-error *ngIf="service.form.controls['title'].hasError('required')">Title is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+              <input formControlName="sub_title" matInput placeholder="Subtitle*">
+              <mat-error *ngIf="service.form.controls['sub_title'].hasError('required')">Subtitle is required</mat-error>
+          </mat-form-field>
+          
+        </div>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <div class="controls-container">
+            
+          <input
+            style="display: none"
+            type="file" (change)="onFileChanged($event)"
+            #fileInput>
+
+              <!-- <mat-icon *ngIf="showPlatformRecommendedImage && !uploadingFile" id="object" class="SVGIconCSS" svgIcon="modelSvgIcon">
+              </mat-icon> -->
+           
+              <img *ngIf="showPlatformRecommendedImage && !uploadingFile" [src]="imageURL" style="height: 280px;width: 100%;" alt="image">
+
+
+            <button *ngIf="!uploadingFile" style="margin-top:10px;margin-bottom:10px" (click)="fileInput.click()" mat-raised-button color="primary" type="button">{{service.form.controls['image_filename'].value ? "Edit Recommended Image" : "Add Recommended Image"}}</button>
+            <mat-progress-spinner [hidden] = "!uploadingFile" [value] = "uploadedPercntValue" style="margin:0 auto" ></mat-progress-spinner>
+        </div>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </form>
+
+  <div class = "button-container">
+    <div class="button-row">
+        <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid || uploadingFile">Save</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid || uploadingFile" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+      </div>
+</div>
+
+

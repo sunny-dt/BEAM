@@ -1,0 +1,108 @@
+.login-container-fluid {
+
+  width: 100%;
+  height: -webkit-fill-available;
+}
+
+.page-header {
+
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%; 
+  z-index: 0;
+  height: 200px;
+  background-color: #4599C3;
+  font-size: 20px;
+}
+
+.menuButton {
+
+  text-align: right;
+  float: right;
+  margin-right: -10px;
+}
+
+.g3ProductIDTool {
+
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.logoImage {
+
+  display: flow-root;
+}
+
+.matActions {
+
+  widows: 100%;
+}
+  
+hr {
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgb(161, 161, 161);
+}
+
+.card>hr {
+
+  margin-right: -16px;
+  margin-left: -16px;
+}
+
+.text-right {
+
+  display: block;
+  margin-bottom: 0px;
+}
+ 
+.userName {
+
+  margin-top: 20px;
+  margin-left: 3%;
+}
+
+.password {
+
+  margin-top: 47px;
+  margin-left: 3%;
+}
+
+.loginerrorsms {
+
+  display: block;
+  color: red;
+  font-size: 18px;
+  float: left;
+  margin-left: 7%;
+}
+
+ .submitButtonEnableColor {
+
+  background-color: #d3e5ec;
+  color: #2e849e;
+}
+
+.submitButtonDisabledColor {
+
+  background-color: #EAEAEA;
+  color: #A8A8A8;
+}
+
+.userNameLabelOne {
+
+  font-size: 22px;
+}
+
+.userNameLabelTwo {
+
+  color:red;
+  font-size: 22px;
+}
+
+@media screen and (max-width: 550px) {
+
+}

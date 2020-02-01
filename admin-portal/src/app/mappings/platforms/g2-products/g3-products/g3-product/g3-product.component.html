@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span>{{service.form.controls['id'].value ? "Update G3 Product" : "New G3 Product"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+  <mat-grid-list cols="1" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controls-container">
+
+        <input type="hidden" formControlName="id">
+        <input type="hidden" formControlName="g2_product_type_id">
+
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="G3 Product Name*">
+          <mat-error *ngIf="service.form.controls['name'].hasError('required')">G3Product Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="code" matInput placeholder="Product Code*">
+          <mat-error *ngIf="service.form.controls['code'].hasError('required')">Product Code is required</mat-error>
+          <mat-error *ngIf="service.form.controls['code'].hasError('pattern')">Product Code must be a 4 digit number</mat-error>
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Save</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+        </div>
+
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

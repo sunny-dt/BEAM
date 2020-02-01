@@ -1,0 +1,76 @@
+.analyticsFabPageWebMatDrawer {
+
+    display: block;
+  }
+  
+  .analyticsFabPageMobileMatDrawer {
+  
+    display: none;
+  }
+
+  .analyticsFabPageTableRow {
+
+    cursor: pointer;
+    border: 2px solid #f4f4f4; 
+    height: 40px;
+   }
+   
+   .analyticsFabPageTableRow:hover {
+   
+     cursor: pointer;
+     background-color:rgba(0,0,0,.04);
+   }
+  
+  .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+    top: 18px;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 12px;
+    border-radius: 10px
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    height: 100%;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    background-color: #4599c5;
+  }
+  .mat-accent .mat-slider-thumb {
+    height: 30px;
+    width: 30px;
+    border: solid 2px gray;
+    bottom: -20px;
+    right: -20px;
+  }
+  .mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label {
+    background-color: #4599c5;
+  }
+
+  @media screen and (max-width: 600px) {
+  
+    .analyticsFabPageWebMatDrawer {
+  
+      display: none;
+    }
+  
+    .analyticsFabPageMobileMatDrawer {
+  
+      display: block;
+    }
+  
+    .analyticsFabPageMobileTitle {
+      
+      font-size: medium;
+    }
+  
+    .analyticsFabPageSidenav {
+  
+      height: 100%;
+      width: 0;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      background-color: white;
+      box-shadow:4px -1px 20px 0px rgba(0, 0, 0, 0.2);
+    }
+  }

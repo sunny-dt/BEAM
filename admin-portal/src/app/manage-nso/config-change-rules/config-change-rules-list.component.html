@@ -1,0 +1,58 @@
+<div class="mat-elevation-z8">
+
+  <div class="search-div">
+      
+    <mat-form-field class="search-form-field" floatLabel="never">
+
+        <input disabled matInput placeholder="{{title}}" #input autocomplete="off">
+        
+    </mat-form-field>
+    <!-- <span class="searchbar-createbtn-spacing">
+        <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>New</button>
+    </span> -->
+    
+  </div>
+  
+
+  <mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="ruleid">
+        <mat-header-cell *matHeaderCellDef>RULE ID</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.ruleid}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="platform_family_name">
+        <mat-header-cell *matHeaderCellDef>PLATFORM NAME</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.platform_family_name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="chamber_family_name">
+        <mat-header-cell *matHeaderCellDef>CHAMBER FAMILIES</mat-header-cell>
+        <mat-cell *matCellDef = "let element"></mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef = "let row">
+  
+          <button class="left-right-spacing" mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+          <button class="left-right-spacing"  mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+  
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="3">Loading...</mat-footer-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="noRecords">
+          <mat-footer-cell *matFooterCellDef colspan="3">No Records found</mat-footer-cell>
+        </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || builderConfigChangeRulesService.totalCount > 0}"></mat-footer-row>
+    </mat-table>
+</div>

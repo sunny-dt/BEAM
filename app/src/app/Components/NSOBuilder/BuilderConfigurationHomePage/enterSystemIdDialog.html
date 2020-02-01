@@ -1,0 +1,34 @@
+<div style="height: 242px">
+    <form [formGroup]="sysidform"  style="position: relative;min-height: 60px;">
+  
+          <mat-form-field class=" example-full-width" style="width: 100%;">
+            
+                <label  style="font-size: 13px" for="postal-code"> Enter System ID</label>
+                <input id="systemIDSearch" style="font-size:14px; margin-top: 3%;"  matInput  #systemId formControlName="sysidsearchTerm"  [matAutocomplete]="auto" (keyup)="onSystemIDSearchKeyUp($event)" [(ngModel)]="fab_name">
+                <img class="sysidclose-icon"  src="assets/close@3x.png" (click)="systemIDSearchClear();">
+        
+                <mat-autocomplete  #auto="matAutocomplete"  style="max-height: 160px !important;" >
+                <div style="max-height: 160px !important;">
+                    <mat-option class="optionsTitles" *ngFor="let searchSystemID of searchSystemIDDropDownList" (click)="searchSystemIDClick(searchSystemID);" >
+                        {{searchSystemID.project_number}} ({{searchSystemID.fab_name}})
+                    </mat-option>
+                </div>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    <p style="color: red"> {{errorMessageForNoConfiguration}}</p>
+</div>
+<hr>
+<div class="dialog-footer">
+
+    <div *ngIf="!systemIDSubmitButtonEnable; else enable">
+        <button type="button"  class="btn submit-btn col-sm-3 systemIDButton" >SUBMIT</button>    
+    </div>
+
+    <ng-template #enable>
+        <button type="button"  class="btn submit-btn col-sm-3 systemIDSubmitButton" (click)="submit()">SUBMIT</button>       
+    </ng-template>
+
+    <button  class="btn  col-sm-3 cancel-button" style="font-size: 12px;" type="button" (click)="SysidDialogClose()">CANCEL</button>
+</div>
+  

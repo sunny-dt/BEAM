@@ -1,0 +1,78 @@
+[2020-01-11T15:11:41.869] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}
+[2020-01-11T15:11:42.259] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}
+[2020-01-11T15:12:31.913] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}
+[2020-01-11T15:12:55.304] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}
+[2020-01-11T15:13:45.287] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}
+[2020-01-11T15:47:59.293] [ERROR] default - Error: Not Found
+    at C:\Users\welcome\Downloads\admin-portal\api\api\app.js:98:17
+    at Layer.handle [as handle_request] (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:317:13)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:224:17
+    at originCallback (C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:214:15)
+    at C:\Users\welcome\Downloads\admin-portal\api\api\node_modules\cors\lib\index.js:219:13 {
+  status: 404
+}

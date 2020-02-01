@@ -1,0 +1,94 @@
+<div class="mat-elevation-z8">
+
+  <div class="search-div">
+      
+      <mat-form-field class="search-form-field" floatLabel="never">
+
+          <input matInput placeholder="Search Opportunities" #input autocomplete="off" [(ngModel)]="searchText">
+          <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="input.value" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
+      </mat-form-field>
+      <!-- <span class="searchbar-createbtn-spacing">
+          <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>New</button>
+      </span> -->
+      
+  </div>
+   
+
+    <!-- <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+
+        <mat-spinner></mat-spinner>
+
+    </div> -->
+
+  <mat-table [dataSource]="dataSource" matSort matSortActive="id" 
+                      matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="op_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>OP ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.op_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="product_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>PRODUCT NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.product_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="product_code">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>PRODUCT CODE</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.product_code}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="platform_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>PLATFORM NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.platform_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="c_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.c_date | date : 'medium'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_by_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED BY ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.created_by_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_by_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED BY NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.created_by_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef = "let row">
+
+          <button mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+
+        </mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="4">Loading...</mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noRecords">
+        <mat-footer-cell *matFooterCellDef colspan="4">No Records found</mat-footer-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || opportunityService.totalOpportunitiesCount > 0}"></mat-footer-row>
+  </mat-table>
+
+
+  <mat-paginator [length]="opportunityService.totalOpportunitiesCount" [pageSize]="20"
+                   [pageSizeOptions]="[6, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
+</div>

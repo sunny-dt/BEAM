@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span>{{service.form.controls['id'].value ? "Update Node Type" : "New Node Type"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+  <form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+    <mat-grid-list cols="1" rowHeight="360">
+      <mat-grid-tile>
+        <div class="controls-container">
+  
+          <input type="hidden" formControlName="id">
+
+          <mat-form-field>
+            <input formControlName="name" matInput placeholder="Node Type Name*">
+            <mat-error *ngIf="service.form.controls['name'].hasError('required')">Node Type Name is required</mat-error>
+          </mat-form-field>
+  
+        </div>
+      </mat-grid-tile>
+
+    
+    </mat-grid-list>
+
+  </form>
+
+  <div class = "button-container">
+    <div class="button-row">
+        <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid">Save</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+      </div>
+</div>
+
+

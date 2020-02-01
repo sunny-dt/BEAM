@@ -1,0 +1,69 @@
+<div class="" style="margin-top: -24px;"> 
+
+        <form class="form-horizontal" role="form" [formGroup]="emailTemplateForm" (ngSubmit)="dailogSend()" >
+                <div style="background-color: #4599C3; margin-right: -24px; margin-left: -24px;">
+                        <h6 style="font-size: 16px;font-weight: bold;height: 43px;color: white;padding-top: 6px; display: inherit; text-align: center;" mat-dialog-title>Compose Email</h6>
+                        <mat-progress-bar [hidden]="showProgressBar" style="height: 4px; background: #FFFFFF; width: 100%; margin-bottom: 20px;" color="primary" mode="indeterminate" value="50" bufferValue="75"></mat-progress-bar>
+                </div>
+        
+                <mat-dialog-content>
+                        <div class="panel panel-default">
+                                <div class="panel-body message">
+
+                                        <label [hidden]="showErrorMessage" class="col-sm-12 control-label" style="color: red;">*Restricted - Can send emails only with in AMAT</label>
+
+                                        <div class="form-group">
+                                                <label class="col-sm-1 control-label">From:</label>
+                                                <div class="col-sm-12">
+                                                        <input disabled type="email" class="form-control" [value]="emailFrom">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="col-sm-1 control-label">To:</label>
+                                                <div class="col-sm-12">
+                                                        <input type="email" class="form-control" placeholder="user@amat.com" formControlName="emailToFormControlName" (input)="onToInputChange($event.target.value)">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="col-sm-1 control-label">CC:</label>
+                                                <div class="col-sm-12">
+                                                        <input type="email" class="form-control" placeholder="user@amat.com" formControlName="emailCCFormControlName">
+                                                </div>
+                                        </div>
+                                        <div hidden class="form-group">
+                                                <label class="col-sm-1 control-label">BCC:</label>
+                                                <div class="col-sm-12">
+                                                        <input type="email" class="form-control" placeholder="user@amat.com" formControlName="emailBCCFormControlName">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="col-sm-1 control-label">Subject:</label>
+                                                <div class="col-sm-12">
+                                                        <input type="text" class="form-control" placeholder="Type subject" formControlName="emailSubjectFormControlName">
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                                <label class="col-sm-1 control-label">Body:</label>
+                                                <div class="col-sm-12">
+                                                        <textarea class="form-control" name="body" rows="8" placeholder="Type message here" formControlName="emailBodyFormControlName"></textarea>
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                                <label class="col-md-2 control-label">Attachment</label>
+                                                <div class="col-md-12">
+                                                        <input type="text" disabled class="form-control" [value]="attachmentFileName"/>
+                                                </div>
+                                        </div>
+                                </div>	
+                        </div>	
+                </mat-dialog-content>
+
+                <hr style=" margin-top: 10px;">
+                <div class="row col-xs-12 mat-dialog-actions" style="margin-left: 9px;margin-right: 9px;display: block; margin-top: 20px; margin-bottom: 0px">
+                        <button type="submit"  class="btn col-sm-2 doneBUtton" [disabled]="!emailTemplateForm.valid">SEND</button> 
+                        <button type="button" class="btn col-sm-2 cancelButton" (click)=dailogCancel()> CANCEL</button>     
+                </div>
+        </form>
+</div>

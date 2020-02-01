@@ -1,0 +1,27 @@
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link
+
+       (click)="navigateToSubNodePage()"
+       [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == 'subnodes'}">
+  
+         Sub Nodes 
+    </a>
+
+    
+    <a mat-tab-link
+
+       (click)="navigateToMetadataPage()"
+       [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == 'metadata'}">
+      Metadata
+    </a>
+
+    <a mat-tab-link
+
+       (click)="navigateToRecommendedPage()"
+       [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == 'recommended'}">
+      Recommended
+    </a>
+  </nav>
+  
+  <router-outlet></router-outlet>

@@ -1,0 +1,87 @@
+<div style="margin: -24px !important;">
+        
+        <div class="ReviewChangesHeader">
+                <div>
+                <span style="margin-left: 25px;color:black;">Review Changes</span>
+                </div>
+        </div>
+
+        <div class="container-fluid web-view" style="text-align: center;padding-left: 10%; padding-top: 4%;">
+                <div style="margin-left: -4%;">
+                        <span style="font-size: 5px;margin-left: 2%;margin-right: 10%;"><i class="fa fa-exclamation-triangle" style="color:rgb(255, 187, 0); font-size:30px;margin-bottom: 2%;" ></i> </span>
+                        <label style="display: block; margin-bottom: 2%;">You are about to {{chamberActionMessage}} a chamber. Are you sure you want to make changes?</label> 
+                </div>
+
+                <div class="row col-xs-12" style="padding-left: 15%;padding-right: 15%;margin-bottom: 2%;">
+                        <div class="col-sm-5"> 
+                                <mat-label style="float: left; color: #ccccbf; font-size: 11px;">CURRENT</mat-label>                   
+                        </div>
+
+                        <div class="col-sm-5"> 
+                                <mat-label style="float: left; margin-left: 9%; color: #ccccbf; font-size: 11px;">NEW</mat-label>
+                        </div>
+                </div>
+
+                <div class="row col-xs-12" style="padding-left: 15%;padding-right: 15%; margin-bottom: 2%;">
+                        <div class="col-sm-5"> 
+                                <div class="CURRENT">
+                                        <label class="CURRENT-Value">Chamber {{nsoSelectedFecetName}}</label><br/>
+                                        <label class="CURRENT-Option" style="text-align: left;" >{{currentChamber}} {{displayGotCode(currentChamberGotCode)}}</label>
+                                 </div>
+                        </div>
+                        <span style="margin-top: 20px"><img width="25px" height="21px" src="assets/review-changes-right-arrow.png"/></span>
+                        <div class="col-sm-5"> 
+                                <div class="NEW">
+                                        <label class="NEW-Value">Chamber {{nsoSelectedFecetName}}</label><br/>
+                                        <label class="NEW-Option" style="text-align: left;" >{{newChamber}} {{displayGotCode(newChamberGotCode)}}</label>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+
+        <div class="mobile">
+                <div class="container-fluid" style="text-align: center;padding-left: 10%; padding-top: 4%;">
+
+                        <span style="font-size: 5px;margin-left: 2%;margin-right: 10%;"><i class="fa fa-exclamation-triangle" style="color:rgb(255, 187, 0); font-size:30px; margin-bottom: 2%;" ></i> </span>
+                        <label style="display: block;margin-bottom: 2%;">You are about to upgrade a chamber. Are you sure you want to make changes?</label> 
+                
+                        <div class="row col-xs-12" style="padding-left: 15%;padding-right: 15%;">
+                                <div class="col-sm-5"> 
+                                        <div style="margin-bottom: 25px;"> 
+                                                <mat-label style="float: left; color: #ccccbf; font-size: 11px;">CURRENT</mat-label>   
+                                        </div>
+                                        
+                                        <div style="border: 1px solid rgb(204, 204, 191);height: 70px;margin-top: 2%;border-radius: 2%;">
+                                                <label class="mobile-current-value">Chamber {{nsoSelectedFecetName}}</label><br/>
+                                                <label style="text-align: left;" class="mobile-current-option">{{currentChamber}}</label>
+                                        </div>
+                                </div>
+
+                                <span style="margin-top: 2%; margin-left: 37%;"><img width="25px" height="21px" src="assets/review-changes-down-arrow.png"/></span>
+                        
+                                <div class="col-sm-5"> 
+                                        <div style="margin-bottom: 25px;"> 
+                                                <mat-label style="float: left; color: #ccccbf; font-size: 11px;">NEW</mat-label>   
+                                        </div>
+                                
+                                        <div style="border: 1px solid #4599C3;background-color: rgba(59, 238, 247, 0.11);height: 70px;margin-top: 2%;border-radius: 2%;">
+                                                <label class="mobile-new-value">Chamber {{nsoSelectedFecetName}}</label><br/>
+                                                <label style="text-align: left;" class="mobile-current-option">{{newChamber}}</label>
+                                        </div>
+                                </div>
+                        </div>
+                
+                </div>
+        </div>
+
+        <div style="width:100%; text-align:center; padding: 2%" class="buttontop">
+                <button mat-flat-button   class="col-sm-3 dialog ConfirmButton"  (click)="ConformChanges()">Confirm Changes</button><br/>
+                <button mat-flat-button class="col-sm-3 dialog  reviewCancel" (click)=" ReviewChangesClose()">Cancel</button>
+        
+        </div>
+
+
+</div>
+
+

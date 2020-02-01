@@ -1,0 +1,130 @@
+<div class="search-Body" id="top">
+    <mat-form-field appearance="none" class="example-chip-list formFiled" style="position: relative; min-height: 60px; z-index: 999; min-height: 60px; position: fixed;">
+        <mat-chip-list #chipList >
+            <mat-chip  [ngStyle]="{'background-color': item.color}"
+                style=" border-radius: 5px; margin-left: 15px;"
+                *ngFor="let item of selectedSearchItem"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="removeItemFromSearch(item)">
+                {{item.name}}
+                <mat-icon [ngStyle]="{'color': item.matIconColor}" matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+
+            <input autofocus  
+                #inputRefVar 
+                [formControl]="fruitCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addInputSearchItem($event)" (focus)="focusInFunction()" (focusout)="focusOutFunction()">
+                <img class="closeBittonIcon"  src="assets/close@3x.png" (click)="closeButton();">
+        </mat-chip-list>
+
+        <mat-autocomplete  class="mat-auto" #auto="matAutocomplete" (optionSelected)="filteredSearchSelected($event)">
+        <mat-option  *ngFor="let filtered of filteredSearchDropDownList.keywords" [value]="filtered.display_term">
+            <h6 [innerHTML]="filtered.display_term | highlight: highlightOptionTerm"></h6>
+        </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="row" style="margin-right: 0px;margin-left: 0px;margin-top: 0px;background: #f4f4f4; padding: 60px;">
+    
+        <div class="col-sm-4 body-left-panel">
+        
+            <div>
+                <mat-accordion #accordion="matAccordion" [multi]="true">
+                    <mat-expansion-panel [expanded]="true" class="mat-elevation-z0" style="background: #f4f4f4; margin-bottom: 15px;" *ngFor="let filter of searchResultItems.filters">
+                        <mat-expansion-panel-header [collapsedHeight]="customCollapsedHeight" [expandedHeight]="customExpandedHeight">
+                            <mat-panel-title>
+                                {{filter.category}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <mat-list>
+                                <mat-list-item style="height: 30px;" *ngFor="let children of filter.items">
+                                    <mat-checkbox [(ngModel)]="children.is_active" (change)="checkboxClick($event, children)">{{children.name}}</mat-checkbox>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </mat-expansion-panel>  
+                </mat-accordion>
+            </div>
+        </div>
+
+        <div class="col-sm-8 body-right-panel" style="padding-left: 0px; padding-right: 8%; text-align: center;">
+        
+            <div class="col" style="display: flex;">
+                <div class="col">
+                    <h6 class="results-title"> {{searchResultCount}} Results </h6>
+                </div>
+                <div class="col" style="display: flex">
+                    
+                    <span class="sotyByTitle"> Sort by</span> <span><div style="text-align: center;margin-left: 15%;display: flex">
+                            
+                        <div style="display: flex;cursor: pointer;" [matMenuTriggerFor]="menu" > 
+                            <h6 class="" style="cursor: pointer;font-size: 16px; color: rgba(0, 0, 0, 0.8)" >{{sortBySelectedTitle}}</h6> 
+                            <span class="material-icons arrowIcon">arrow_drop_down</span>
+                        </div>
+                
+                        <mat-menu class="custom-mat-menu-panel" #menu="matMenu" [overlapTrigger]="false">
+                            <mat-nav-list *ngFor="let sortBy of sortByselectOptions" (click)="sortByselectOptionsChange(sortBy)">
+                                <mat-list-item >
+                                    {{sortBy.name}}
+                                </mat-list-item>
+                            </mat-nav-list>
+                        </mat-menu>
+                        </div>
+                    </span> 
+                </div>
+                <div class="col" style="margin-right: -40px;">
+                    <span style="float: right;margin-top: -8px;"> <img src="assets/view-list@3x.png" [ngClass]="{ 'listIcon': isListIcondisabled === true }" class="toggleButton" (click)="listViewIcon()"></span> 
+                    <span style="float: right;margin-top: -8px;"> <img src="assets/view-grid@3x.png" [ngClass]="{ 'gridIcon': isgridIcondisabled === true }" class="toggleButton" (click)="gridViewIcon()"></span> 
+                </div>
+            </div>
+
+            <div class="row gridViewBox">
+                <div [hidden]='isgridIcondisabled' class="col-md-3 innerGridViewBox" *ngFor="let searchResultItem of searchResultItems.items; let hierachyIndex = index" (click)="navigateToDetailsPage(searchResultItem)" (mouseenter) ="showHierachyOnHoveryByItem(hierachyIndex)" (mouseleave) ="showHierachyOnHoveryByItem(-1)">
+                    <div class="tile_image_block">
+                        <img [src]='getSearchItemImage(searchResultItem)'>
+                    </div>
+                    <div style="text-overflow: ellipsis; white-space: nowrap; display: inherit; overflow: hidden;" class="hierachy-title" [class.opened]="hierachyIndex == showHierachyIndex">
+                        <div [hidden]="hierachyIndex != showHierachyIndex" style="display: inline-block; margin-top: 8px;" *ngFor="let pathComponent of searchResultItem.full_path_components; let i = index">
+                            <span style="font-size: 14px; color: #ffffff;">{{pathComponent}}<span *ngIf="i != searchResultItem.full_path_components.length-1" style="margin-left: 2px; margin-right: 2px">/</span></span>
+                        </div>
+                    </div>
+                    <div class="grid-item-title-block">   
+                        <span style="color: black;right: 0;font-size: 18px;"> {{searchResultItem.name}} </span>
+                    </div>
+                </div>
+
+                <div class="listViewBlock"  [hidden]='!isgridIcondisabled'>
+                    <mat-nav-list style="margin-right: -10px;">
+                        <mat-list-item style="height: 100px;" *ngFor="let searchResultItem of searchResultItems.items" (click)="navigateToDetailsPage(searchResultItem)">
+                            <div style="width: 100%; height: 100px;">
+                                <div class="innerListViewBlock">
+                                    <div class="listViewImageBlock">
+                                        <img [src]='getSearchItemImage(searchResultItem)' width="80px" height="80px">
+                                    </div>
+                                    <div class="listViewTitlesBlock">
+                                        <span class="listViewTitle" style="font-size: 20px; color: rgba(0, 0, 0, 0.8)">{{searchResultItem.name}}</span><br>
+                                        <div style="display: inline-block;" *ngFor="let pathComponent of searchResultItem.full_path_components; let i = index">
+                                            <span class="listViewSecondTitle">{{pathComponent}}<span *ngIf="i != searchResultItem.full_path_components.length-1" style="margin-left: 5px; margin-right: 5px">/</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                            </div>
+                        </mat-list-item>
+                    </mat-nav-list>
+                </div>
+            </div>
+
+            <button class="btn btn-primary show-more-button" [hidden]="hideShowMoreButton" type="button" (click)="showMoreButton()" >Show More</button>
+            <!-- <div style="width: 100%;margin-top: 70px;margin-bottom: 8%;">
+                    <button class="btn btn-primary show-more-button" type="button" >Show More</button>
+                </div> -->
+        </div>
+    </div>
+</div>

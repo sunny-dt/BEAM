@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages{
+        stage('build'){
+            steps{
+                echo 'checking git'
+                git 'https://github.com/sunny-dt/Angular-deploy.git'
+                bat 'docker-compose up'
+            }
+        }
+        stage('Test'){
+            steps{
+                bat 'npx cypress run'
+            }
+        }
+        
+    }
+}

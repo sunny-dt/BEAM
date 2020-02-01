@@ -1,0 +1,53 @@
+<div class="container">
+    <mat-card class="card"  style="padding:16px">
+        <div class="inner">
+            <form [formGroup]="form">
+                <div class="row col-md-12">
+                    <mat-form-field class="opIDField example-full-width col-md-5">
+                        <label class="inputOPIDLabel" for="postal-code">Input OP ID</label>
+                        <input id="opIdInput" class="opId" style="font-size:16px" #opIdInput matInput (focus)="focusFunction()" (focusout)="focusOutFunction()">
+                    </mat-form-field>
+
+                    <div style="margin-top: 6px;" width="20px" height="20px">
+                        <img class="image" width="20px" height="20px" style="margin-top: 40px;" [src]="toolTipIcon">
+                    </div>
+
+                    <div class="row" style="align-items: center; margin-top: 22px; margin-left: 0px; position: absolute; position: sticky;">
+                        <span class="toolTipStyles"  [hidden]="isShowToolTip">
+                            <p class="toolText" style="font-size:14px">Without an OP ID input, this will be treated as a test case scenario and will not be logged.</p>
+                            <div id="arrowPointer"></div>
+                        </span>
+                    </div>    
+                </div>
+
+                <br>
+
+                <mat-form-field class="platformField col-md-5" style="margin-top: 1.5%;">
+                    <label class="selectPlatformLabel" for="postal-code">Select Platform</label>
+
+                    <mat-select id="selectPlatformID" class="selectPlatform" (click)="fetchPlatforms();" [(value)]="selectedPosition" (ngValueChange)="onPlatFormListChange($event, selectedPosition)" formControlName="platform">
+                        <mat-option class="matOptions" *ngFor="let type of platformsList;let selectedPosition=index" [value]="selectedPosition">{{type.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field> <br>
+            </form>
+        </div>
+        <br><br> <br><br>
+
+        <hr>
+        <div class="row matActions">
+            <mat-card-actions class="text-right col-md-12">
+
+                <div *ngIf="!form.valid; else enable">
+                    <button type="button" [disabled]="!form.valid" style="float: right;" 
+                    class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
+                </div>
+
+                <ng-template #enable>
+                    <button type="button" style="background-color:#d3e5ec ; color: #20a5ce;float: right;" [disabled]="!form.valid"
+                        class="btn custom-button-width col-sm-2" (click)="next()">SUBMIT</button>
+                </ng-template>
+                <button class="btn  col-sm-2 backButton"  type="button" (click)="backButton()">BACK</button>
+            </mat-card-actions>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,103 @@
+<mat-toolbar>
+  <span>New Facets-Chambers Grouping</span>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button style="margin-right:10px;" color="primary" (click) = "onSave()">Save</button>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- <div class="container"> -->
+<mat-dialog-content>
+    <mat-card class="card"  style="padding:16px">
+      <div >
+  
+        <div style="display: flex;
+        justify-content: space-between;
+        width: 100%;">
+              <!-- <mat-card-title style="font-size: 20px;" class="card-container-right">Facet Partition </mat-card-title> -->
+              <!-- <mat-card-title class="card-container-right"> <button style="background: #4599c3;color: white;" mat-raised-button (click)="selectedFacetPartition()">Done</button> </mat-card-title> -->
+        </div>
+       
+      <div class="mainBlock">
+    
+          <div class="row col-xs-12 ">
+            <div class="col-md-6 leftBlock">
+              
+    
+              <mat-form-field  style="width: 100%;" >
+  
+                <label style="font-size: 14px;" >Select Facets</label>
+   
+                <mat-chip-list #chipList>
+                  <mat-chip style="background-color:#ccc874ba"  *ngFor="let facet of selectedfacetsList" [selectable]="facetselectable"
+                    [removable]="removable" (removed)="facetsRemove(facet)">
+                    {{facet.name}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+        
+                  <input class="inputField" #facetInput [formControl]="facetFormControl" [matAutocomplete]="facetauto" [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onKeyPress($event)" >
+                  <span class="errorLabelClose" [hidden]="!showSelectedfacetsClearButton" (click)="clearAllSelectedfacets()">
+                    <mat-icon style="color:#4599c3" class="matIcon">close</mat-icon>
+                  </span>
+                </mat-chip-list>
+        
+                <mat-autocomplete #facetauto="matAutocomplete" (optionSelected)="facetOptionSelected($event)">
+                  <mat-option *ngFor="let facet of dropDownfacetsList;let i = index" [value]="facet">
+                    {{facet.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+  
+              <span  *ngFor="let facets of facetsList; let i = index">
+               <mat-chip style="background-color:#abd6e4;margin-right: 5px;font-size: 14px;margin-bottom: 5px;cursor: pointer;"  (click)="facetsOnClick(facets,i)">{{ facets.name }}</mat-chip>
+              <!-- <a style="padding:5px">{{ facets.name }}</a> -->
+              </span>
+  
+            </div>
+  
+            <div class="col-md-6 rightBlock">
+  
+    
+  
+            <mat-form-field  style="width: 100%;" >
+  
+                <label style="font-size: 14px;" >Select Chambers</label>
+  
+              <mat-chip-list #chipList>
+                <mat-chip style="background-color:#ccc874ba"  *ngFor="let chamber of selectedchambersList" [selectable]="chamberselectable"
+                  [removable]="removable" (removed)="chambersRemove(chamber)">
+                  {{chamber.name}} ({{chamber.got_code}})
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+      
+                <input class="inputField" #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="chamberauto" [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onChambersKeyPress($event)" >
+                <span class="errorLabelClose" [hidden]="!showSelectedchambersClearButton" (click)="clearAllSelectedchambers()">
+                  <mat-icon style="color:#4599c3" class="matIcon">close</mat-icon>
+                </span>
+              </mat-chip-list>
+      
+              <mat-autocomplete #chamberauto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
+                <mat-option *ngFor="let chamber of dropDownchambersList;let i = index" [value]="chamber">
+                  {{chamber.name}} ({{chamber.got_code}})
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+  
+            <span  *ngFor="let chambers of chambersList; let i = index">
+             <mat-chip style="background-color:#abd6e4;margin-right: 5px;font-size: 14px;margin-bottom: 5px;cursor: pointer;"  (click)="chambersOnClick(chambers)">{{ chambers.name }} ({{chambers.got_code}})</mat-chip>
+            </span>
+  
+  
+            </div>
+          </div>
+     
+        </div>
+        </div>
+  
+    </mat-card>
+  <!-- </div> -->
+
+</mat-dialog-content>

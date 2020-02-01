@@ -1,0 +1,40 @@
+<div class="" style="margin-top: -24px;margin-left: -24px;margin-right: -24px;"> 
+    <div style="background-color: #4599C3;">
+
+      <h6 style="font-size: 16px;font-weight: bold;height: 43px;color: white; padding-top: 6px; display: inherit; text-align: center;" mat-dialog-title>Calculate Revenue Opportunity</h6>
+    </div>
+    <div style="padding-left: 20px;padding-top: 21px;">
+      <div>
+        <p style="font-size:14px; margin-top:-16px">Upgrading <span style="font-weight: bold">{{chamberCount}}</span> units of <span style="font-weight: bold; margin-left: 5px; margin-right: 5px">{{chamberName.toUpperCase()}}</span> to </p>
+      </div>
+      
+      <div style="margin-top: -5px;">
+        <div>
+          <!-- <span>Select the chamber:</span> -->
+        <span style="font-size:14px; margin-top:-16px; margin-left: 0px;">
+          <mat-select id="upgradeChamberNameSelect" style="width: 96%; border: 1px #bcb9b9 solid; height: 30px;" [(value)]="selectedPosition">
+              <mat-option class="matOptions" *ngFor="let chamber of upgradeChamberNames;let selectedPosition=index" [value]="selectedPosition">{{chamber.upgrade_chname}}</mat-option>
+          </mat-select>
+        </span> 
+      </div>
+      <div style="margin-top: 5px;"> <span style="font-size:14px; margin-top:-16px; margin-left: 0px;"> Cost per unit : </span>
+        <span style="font-size:14px; margin-top:-16px; ">$<input type="text" min="0" id="costPerUnitInput" #costPerUnit [(ngModel)]="quantity" (keypress)="onlyNumber($event)" pattern="[0-9]+" (keyup)="onKeyUp($event)" style="width: 76%; margin-left: 4px;"/></span></div>
+ 
+        <p style="margin-top: 5px"><span style="font-size:14px; margin-top:-16px; margin-left: 0px;">Revenue opportunity worth </span><span>({{chamberCount}} X $ {{quantity}}) :  </span>
+        <span style="font-size:14px; margin-top:-16px; margin-left: 5px; font-weight: bold">${{totalCount}}</span></p>
+      </div>
+    </div>
+    <br>
+    <hr style="margin-top: 0px; margin-bottom: 21px;">
+    <div class="row col-xs-12 mat-dialog-actions" style="margin-top: -20px; margin-left: 0px;margin-right: 9px;">
+        <div class="col-sm-6" style="float: left;">
+          <!-- <label style=" float:left; cursor: pointer; color:#4599C3; margin-left: 30px;" (click)=dailogCancel()>CANCEL</label> -->
+          <button type="button" style="float:left; margin-left: 10px;"  class="btn submit-btn col-sm-6 upgradeChamberCancelButton" (click)=dailogCancel()>CANCEL</button> 
+        </div>
+        <div class="col-sm-6" >
+          <!-- <label style="font-size:15px; cursor: pointer; color: #4599C3; float: right;" (click)=dailogCancel()>DONE</label> -->
+          <button *ngIf="!systemIDSubmitButtonEnable" type="button"  class="btn submit-btn col-sm-6 upgradeChamberButton"  (click)=dailogCancel()> DONE</button> 
+          <button *ngIf="systemIDSubmitButtonEnable" type="button"  class="btn submit-btn col-sm-6 upgradeChamberDoneButton" (click)=dailogCancel()> DONE</button> 
+       </div>
+    </div>
+</div>

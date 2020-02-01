@@ -1,0 +1,79 @@
+<div class="mat-elevation-z8">
+
+  <div class="search-div">
+      
+      <mat-form-field class="search-form-field" floatLabel="never">
+
+          <input matInput placeholder="Search Node Type Attribute Names" #input autocomplete="off" [(ngModel)]="searchText">
+          <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="input.value" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
+      </mat-form-field>
+      <span class="searchbar-createbtn-spacing">
+          <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>New</button>
+      </span>
+      
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="attr_type_name" 
+                      matSortDirection="asc" matSortDisableClear
+                      
+                      cdkDropList
+                      [cdkDropListData]="dataSource"
+                      (cdkDropListDropped)="dropTable($event)">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="attr_type_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>TYPE</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.attr_type_name}}</mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef = "let row">
+
+          <button class="left-right-spacing" style="pointer-events:all;" (mousedown)="onInvalidDragEventMouseDown()" mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+
+          <button class="left-right-spacing" style="pointer-events:all;" (mousedown)="onInvalidDragEventMouseDown()"  mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+
+        </mat-cell>
+      </ng-container>
+
+        <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Display Order </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon cdkDragHandle style="pointer-events:all;">reorder</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="3">Loading...</mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noRecords">
+        <mat-footer-cell *matFooterCellDef colspan="3">No Records found</mat-footer-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" style="pointer-events:none;"
+    cdkDrag (cdkDragStarted)="dragStarted($event)" [cdkDragData]="row"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || nodeTypeAttributeNameService.totalNodeTypeAttributeNamesCount > 0}"></mat-footer-row>
+  </mat-table>
+
+
+  <mat-paginator [length]="nodeTypeAttributeNameService.totalNodeTypeAttributeNamesCount" [pageSize]="200"
+                   [pageSizeOptions]="[200]" [showFirstLastButtons]="true"></mat-paginator>
+
+</div>
+
+

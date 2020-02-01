@@ -1,0 +1,37 @@
+
+<!-- <mat-tab-group>
+  <mat-tab label="Featured"> <app-home-featured-list></app-home-featured-list> </mat-tab>
+  <mat-tab label="Node Types"> <app-menu-node-types></app-menu-node-types> </mat-tab>
+</mat-tab-group> -->
+
+<!-- <nav mat-tab-nav-bar>
+
+    <a mat-tab-link [routerLink]="featured" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">Featured</a>
+
+    <a mat-tab-link [routerLink]="node-types" routerLinkActive #rla2="routerLinkActive"
+    [active]="rla2.isActive">Node Types</a>
+
+</nav> -->
+
+
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+
+     (click)="navigateToFeaturedPage()"
+     [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == 'featured'}">
+
+       Featured 
+  </a>
+
+  
+  <a mat-tab-link
+
+     (click)="navigateToNodeTypesPage()"
+     [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == 'node-types'}">
+    Node Types
+  </a>
+
+</nav>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,57 @@
+<div>
+    <!-- <div class="filter-header">
+      <div style="width: 100%; text-align: center;">
+          <h5 style="color:white;">Filter By {{filterType}}</h5>
+      </div>
+    </div> -->
+
+    <mat-dialog-content>
+    <mat-form-field style="width:100%;padding-left: 15px;padding-right: 15px;">
+
+      <label style="color: #4599C3;font-size: 14px;">Select {{filterType}}</label>
+        <mat-chip-list #chipList>
+          <mat-chip
+            *ngFor="let selectedItem of selectedFilterItemsList"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(selectedItem)">
+            {{selectedItem}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+
+          <input
+            id="filterSearchInput"
+            #SearchFilterInput
+            [formControl]="searchFormControl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (keyup)="onKeyPress($event)">
+            <span style="float: right;" (click)="clearAllSelectedFilters()">
+              <mat-icon id="clearFilerButton" style="color: #4599C3; cursor: pointer;">close</mat-icon>
+            </span>
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let dropdownItem of dropDownChambersList" [value]="dropdownItem">
+            {{dropdownItem}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <div style="display: table;width: 100%;padding-left: 15px;padding-right: 15px">
+
+        <p class="chamberNameTitle" *ngFor="let filterItem of filterItemsList; let i = index" (click)="filterItemClick(filterItem)" >
+          <a id="selectFilter{{i}}" style="padding:5px">{{filterItem}}</a>
+        </p>
+      </div>
+
+    </mat-dialog-content>
+      <hr style="margin-bottom: 0px; margin-top: 0px;">
+      <div class="row col-xs-12 mat-dialog-actions" style="margin-left: 9px;margin-right: 9px;display: flow-root; margin-top: 20px; margin-bottom: 0px;">
+        
+          <button type="button" class="btn col-sm-2 doneBUtton" (click)=dailogDone()>DONE</button> 
+          <button type="button" class="btn col-sm-2 cancelButton" (click)=dailogCancel()> CANCEL</button> 
+                 
+      </div>
+</div>

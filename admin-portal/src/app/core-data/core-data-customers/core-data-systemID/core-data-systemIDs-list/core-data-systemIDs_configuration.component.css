@@ -1,0 +1,55 @@
+
+.example-chip-list {
+    width: 100%;
+  }
+
+  .errorLabelClose {
+
+    float: right;
+}
+  
+
+.inputField{
+
+width: 100%;
+
+}
+
+.configurationfacetsmatListItem {
+
+  /* margin-left: -16px; */
+  font-size: 14px;
+}
+
+.configurationfacetsmatListItem:hover {
+  
+  background-color: #bcdcec;
+}
+.configurationfacetsindexPosition {
+
+  margin-right: 15px;
+  font-family: Roboto-Medium;
+  font-size: 16px;
+  color: rgba(0,0,0,0.87);
+  font-weight: bold;
+}
+.configurationsvgImageBlock {
+
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto; 
+  height: 580px;  
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+}
+
+.configurationSVGIconCSS {
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 50%;
+}

@@ -1,0 +1,63 @@
+<div class="mat-elevation-z8">
+
+    <div class="search-div">
+        
+        <mat-form-field class="search-form-field" floatLabel="never">
+  
+            <input matInput placeholder="Search Platforms" #input autocomplete="off" [(ngModel)]="searchText">
+            <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="input.value" (click)="onSearchClear()"><mat-icon>close</mat-icon></button>
+        </mat-form-field>
+        <span class="searchbar-createbtn-spacing">
+            <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>New</button>
+        </span>
+        
+    </div>
+  
+    <mat-table [dataSource]="dataSource" matSort matSortActive="id" 
+                        matSortDirection="asc" matSortDisableClear>
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.id}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>NAME</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef = "let row">
+  
+            <!-- <button class="left-right-spacing" mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button> -->
+  
+            <button class="left-right-spacing"  mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+  
+            <!-- <button style="margin-left:10px"  mat-raised-button (click)="onFacets(row)" color="primary">Facets</button>-->
+            <button style="margin-left:10px"  mat-raised-button (click)="onChambers(row)" color="primary">Chambers</button> 
+            <button style="margin-left:10px"  mat-raised-button (click)="onG2Products(row)" color="primary">G2 Products</button>
+          </mat-cell>
+        </ng-container>
+  
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="4">Loading...</mat-footer-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="noRecords">
+          <mat-footer-cell *matFooterCellDef colspan="4">No Records found</mat-footer-cell>
+        </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || platformService.totalPlatformsCount > 0}"></mat-footer-row>
+    </mat-table>
+  
+  
+    <mat-paginator [length]="platformService.totalPlatformsCount" [pageSize]="20"
+                     [pageSizeOptions]="[6, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+  
+  </div>
+  

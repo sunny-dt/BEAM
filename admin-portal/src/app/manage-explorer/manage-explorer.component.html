@@ -1,0 +1,43 @@
+
+
+  <mat-sidenav-container  style="top:0;bottom:0;left:0;right:0;height: 800px"
+  autosize  fxFlex="1 1 auto">
+
+    <mat-sidenav #drawer mode="side"  opened role="navigation" >
+      <mat-nav-list style="padding-top: 0px;">
+        <a mat-list-item routerLink='manage-home' [routerLinkActive]="['matlistitem-is-active']" matTooltip="Home" matTooltipPosition="below"><img src="assets/home-icon.png" style="height: 100%; left: 0; right: 0; margin: auto;"/></a>
+      </mat-nav-list>
+
+
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <!-- This is the tree node template for leaf nodes -->
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <!-- use a disabled button to provide padding for tree leaf -->
+            <!-- <button mat-icon-button disabled></button> -->
+            <span (click)="navigateToPage(node)"   [ngClass]="{'selected-tree-node': menunodeService.currentSelectedNodeId == node.id}">{{node.name}}</span>
+
+          </mat-tree-node>
+
+          <!-- This is the tree node template for expandable nodes -->
+          <mat-tree-node *matTreeNodeDef="let node;let i = index;when: hasChild" matTreeNodePadding>
+            <button id="selectorIcon{{node.id}}"  mat-icon-button matTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.name">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <span id="selector{{node.id}}" (click)="navigateToPage(node)"   [ngClass]="{'selected-tree-node': menunodeService.currentSelectedNodeId == node.id}">{{node.name}}</span>
+
+
+          </mat-tree-node>
+        </mat-tree>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content >
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+

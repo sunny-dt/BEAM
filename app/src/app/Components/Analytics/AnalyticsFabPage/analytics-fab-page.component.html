@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <mat-card class="builder-card" style="padding: 0px;left: 0;right: 0;margin: auto;background-color: #fafafa; margin-bottom: 50px;">
+        <div class="inner">
+
+            <!-- <div style="white-space: nowrap;padding-left: 3%;padding-right: 3%;width: 100%;height: 60px; background: rgb(32, 67, 85);padding-top: 18px;text-align: center;color: white;"> 
+                    <i style="float: left;cursor: pointer;margin-top: 4px" class="fa fa-arrow-left" (click)="goToPreviousPage()"></i>
+                <span style="float: left;cursor:default;margin-left: 2%"><h5>{{chamberName}} </h5><i class="fa fa-angle-right" style="margin-left: 2%;margin-right: 2%;color: #cfcfcf;font-size: 24px;"> </i> <h5>{{customerName}}</h5></span>
+            </div> -->
+
+            <div style="padding-left: 3%;width: 100%;height: 60px; background: rgb(32, 67, 85);padding-top: 18px;text-align: center;color: white;  display:inline-table;"> 
+                <i id="homePageBack" style="float: left;cursor: pointer; margin-top: 4px;" class="fa fa-arrow-left" (click)="goToPreviousPage()"> </i><span style="float: left;margin-left: 3%;cursor: default;"> <h5 class="analyticsFabPageMobileTitle" style="cursor: pointer;" (click)="goToHomePage()">{{titleName | titlecase}}</h5></span> 
+                <span style="float: left;margin-left: 2%;cursor: default;"><i class="fa fa-angle-right" style="color: #cfcfcf;font-size: 24px;"> </i></span><span style="float: left;margin-left: 2%;cursor: default;"><h5 class="analyticsFabPageMobileTitle" style="cursor: pointer;" (click)="goToPreviousPage()">{{chamberName | titlecase}}</h5></span>
+                <span style="float: left;margin-left: 2%;cursor: default;"><i class="fa fa-angle-right" style="color: #cfcfcf;font-size: 24px;"> </i></span><span style="float: left;margin-left: 2%;cursor: default;"><h5 class="analyticsFabPageMobileTitle">{{customerName | titlecase}}</h5></span>
+
+                <div style="text-align: right; margin-right: 40px;">
+                    <span id="exportExcelButton" [matMenuTriggerFor]="menu" style="cursor: pointer" class="configuration-home-select-config-title"><i class="fa fa-download"></i></span>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                        <button mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="exportCurrentData()">Export Filtered Data</button>
+                        <button mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="exportAllData()">Export All Data</button>
+                    </mat-menu> 
+                </div>
+            </div>
+            
+            <div style="background-color: #fafafa;">
+                <mat-drawer-container autosize style="padding-bottom: 50px;">
+                    <mat-button-toggle-group style="margin-bottom: 20px;margin-top: 18px;margin-left: 18px;" #group="matButtonToggleGroup" [value]="pieChartType" (change)="onChartToggleChange(group.value)" >
+                        <mat-button-toggle id="pieToggleButton" value="pie"><mat-icon>donut_small</mat-icon></mat-button-toggle>
+                        <mat-button-toggle id="barToggleButton" value="bar"><mat-icon>assessment</mat-icon></mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                    <button id="sliderButton" [hidden]="getHideSliderOption()" type="button" class="btn btn-primary filter-button" style="margin-left: 15px; height: 48px;" (click)="onClickShowSliderDialog()">
+                        <div style="display: inline-flex; padding-top: 5px;">
+                            <span>Group</span>
+                            <span style="margin-left: 5px; margin-right: 10px">0 - {{sliderValue}}</span>
+                            <span><mat-icon>arrow_drop_down</mat-icon></span>
+                        </div>
+                    </button>
+
+                    <span [hidden]="hideSliderDialog" style="width: 400px; height: 120px; background: white; z-index: 1; position: absolute; margin-top: 18px;margin-left: 18px; padding-top: 20px; padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+
+                        <span style="font: normal">Group customers with units less than: </span>
+                        <span style="float: right; cursor: pointer;"  (click)="onClickHideSliderDialog()"><mat-icon>close</mat-icon></span>
+                        <div style="position: relative; margin-top: 15px">
+                            <mat-slider id="slider" style="width: 350px" thumbLabel [min]="minSliderValue" [max]="maxSliderValue" step="1" [(ngModel)]="sliderValue" (change)="onSliderValue(sliderValue)"></mat-slider>
+                            <span style="position: absolute; top: 0.5em;">{{sliderValue}}</span>
+                        </div>
+                    </span>
+
+                    <div  style="float: right;margin-top: 22px; margin-right: 18px;">
+                        <button type="button" class="btn btn-primary filter-button" (click)="onFilterClick()">
+                           <!-- <i class="fa fa-caret-down"></i> -->
+                             <i class="fa fa-filter"></i> 
+                            <span style="margin-right: 10px;margin-left: 10px;">{{subTitleName | titlecase}} </span>
+                            <span>{{filterCount}}</span>
+                        </button>
+                    </div>
+
+                    <!-- <label style="float: right;margin-top: 28px; margin-right: 18px;">Filter :</label> -->
+                    
+                    <div  style="text-align: center; padding-left: 45px" >
+                        <h5 style="padding-bottom: 25px; padding-right: 50px;"> {{subTitleName}} </h5>
+                    </div>
+
+                    <mat-drawer position="end" #drawer mode='side' opened class="analyticsFabPageWebMatDrawer"> 
+                        <div style="width:340px">
+                            <div fxLayout fxLayoutAlign="center center" style="margin-bottom: -20px;">
+                                <mat-form-field  style="width: 100%;">
+                                    <input id="legendSearchInput" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+                                </mat-form-field>
+                            </div>
+                            <table style="width:100%">
+                                <tr class ='analyticsFabPageTableRow' *ngFor="let legendListItem of legendList | filter : searchText; let i=index" (click)="pieChartLabelItemClicked(legendListItem.name)">
+                                    <td style="text-align: center;padding-left: 10px;"><div style="width: 20px; height: 20px;border-radius: 50px; padding-top: 5px; padding-bottom: 5px;" [ngStyle]="{'background': pieChartColors[0].backgroundColor[i]}"></div></td>
+                                    <td style="width: 150px !important; font-size: 14px;padding-left: 10px;">{{legendListItem.name | uppercase}} {{displayGotCode(legendListItem.gotCode) | uppercase}}</td>
+                                    <td style=" font-size: 14px; text-align: end; padding-right: 10px;">{{legendListItem.count}} ({{getChartPercentage(legendListItem.count)}})</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </mat-drawer>
+                    
+                    <div class="drawer-sidenav-content analyticsFabPageWebMatDrawer">
+                        <div style="width: 100%; height: 100%;justify-content: center;">
+                            <canvas baseChart height="110"
+                                [data]="pieChartData"
+                                [labels]="pieChartLabels"
+                                [chartType]="pieChartType"
+                                [colors]="pieChartColors"
+                                [options]="pieChartOptions"
+                                [legend]="false"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+
+                    <div class="drawer-sidenav-content analyticsFabPageMobileMatDrawer">
+                            <div style="width: 100%; height: 100%;justify-content: center;">
+                                <canvas baseChart height="190"
+                                    [data]="pieChartData"
+                                    [labels]="pieChartLabels"
+                                    [chartType]="pieChartType"
+                                    [colors]="pieChartColors"
+                                    [options]="pieChartOptions"
+                                    [legend]="false"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)">
+                                </canvas>
+                            </div>
+                    </div>
+                    <div id="sidenavDrawer" class="analyticsFabPageSidenav analyticsFabPageMobileMatDrawer">
+                        <div class="navigation-drawer-header">
+                            <div style="width:300px">
+                                <table style="width:100%">
+                                    <tr class ='analyticsFabPageTableRow' *ngFor="let legendListItem of legendList | filter : searchText; let i=index" (click)="pieChartLabelItemClicked(legendListItem.name)">
+                                        <td style="text-align: center;padding-left: 10px;"><div style="width: 20px; height: 20px;border-radius: 50px; padding-top: 5px; padding-bottom: 5px;" [ngStyle]="{'background': pieChartColors[0].backgroundColor[i]}"></div></td>
+                                        <td style="width: 150px !important; font-size: 14px;padding-left: 10px;">{{legendListItem.name}}</td>
+                                        <td style=" font-size: 14px; text-align: end; padding-right: 10px;">{{legendListItem.count}} ({{getChartPercentage(legendListItem.count)}})</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-drawer-container>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+    

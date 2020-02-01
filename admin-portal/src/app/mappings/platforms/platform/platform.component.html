@@ -1,0 +1,65 @@
+<mat-toolbar>
+    <span>{{service.form.controls['id'].value ? "Update Platform" : "New Platform"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+
+    <form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+      <!-- <mat-grid-list cols="2" rowHeight="360">
+        <mat-grid-tile> -->
+          <div class="controls-container" style="height:300px;">
+    
+            <!-- <input type="hidden" formControlName="id">
+            <input type="hidden" formControlName="model_svg_filename">
+            <input type="hidden" formControlName="facets_count">
+            <input type="hidden" formControlName="min_facetgroups_count"> -->
+            <!-- <mat-form-field>
+              <input formControlName="name" matInput placeholder="Platform Name*">
+              <mat-error *ngIf="service.form.controls['name'].hasError('required')">Platform Name is required</mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field  style="width: 100%;" >
+            
+                <mat-label style="font-size: 14px;">Select Platform</mat-label>
+                <input formControlName="name"  matInput [matAutocomplete]="platformNameAuto" (keyup)="onPlatformtKeyPress($event)"  >
+                  <mat-autocomplete #platformNameAuto="matAutocomplete"  >
+                    <mat-option *ngFor="let platform of platformDropDownPlatformList" [value]="platform.name" (click)="platformClick(platform)">
+                      {{platform.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="service.form.controls['name'].hasError('required')">Platform Name is required</mat-error>
+              </mat-form-field>
+
+              <!-- <div style="width: 100%;">
+                  <mat-form-field  style="width: 100%;" >
+          
+                    <mat-label style="font-size: 14px;">Select Platform</mat-label>
+                    <input formControlName="name" #platoformNameInput matInput [matAutocomplete]="platformNameAuto" (keyup)="onPlatformtKeyPress($event)" >
+                      <mat-autocomplete #platformNameAuto="matAutocomplete" [displayWith]="getPlatformName.bind(this)" >
+                        <mat-option *ngFor="let platform of platformDropDownPlatformList" [value]="platform.id">
+                          {{platform.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>
+                </div> -->
+    
+          </div>
+        <!-- </mat-grid-tile> -->
+   
+  
+      <!-- </mat-grid-list> -->
+  
+    </form>
+
+    <div class = "button-container">
+      <div class="button-row">
+          <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="warn" type="button" [disabled]="service.form.invalid" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid || uploadingFile">Save</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid || uploadingFile" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+        </div>
+  </div>
+ 
+  

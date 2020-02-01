@@ -1,0 +1,238 @@
+<div class="container-fluid">
+    <mat-card class="builder-card"  style="padding: 0px;left: 0;right: 0;margin: auto;margin-bottom: 100px;">
+        <div class="inner">
+                <div class="nso-config-chamber-header">
+
+                        <div class="header-config-icon-block" >
+                            <i id="homePageReturn" class="fa fa-th-large" style="font-size: 20px;color: white;cursor: pointer;margin-top: 6%;" (click)="nsoHeaderLogo()"></i>
+                        </div>
+                        <div  class="header-nso-config-title-block">
+        
+                              <input id="configNameInput" *ngIf="isEditNSOHeader" class="header-nso-config-title"  [(ngModel)]="nsoHeaderTitle" spellcheck="false" #nsoConfigTitle (keyup)="onKeyUp($event)" (focusout)="outEditNSOHeaderfocus()" maxlength="50">  
+                           <div  *ngIf="!isEditNSOHeader">
+                                <label style="color:white;">{{nsoHeaderTitle}}</label>
+                                <!-- <input class="header-nso-config-title" spellcheck="false" #nsoConfigTitle (keyup)="onKeyUp($event)">  -->
+                                <i id="configTitleEdit" [hidden]="isEditableTitle" class="fa fa-pencil" style="font-size: 20px;color: white;cursor: pointer; margin-left: 2%" (click)="editNSOHeaderClick()" ></i>
+                           </div>
+                            
+                        </div>
+
+                        <span style="width: 45%; color: rgb(207, 206, 206);"><h5>NSO Builder Flow ({{headerPlatformName}})</h5></span>
+                        <div class="nso-header-check-icon-block">
+                            <!-- <i class="fa fa-check" style="font-size: 20px;color: #b1b0b0;cursor: pointer;"></i> -->
+                            <div style="float: right">
+                                    <span [matMenuTriggerFor]="savemenu" style="float: right;font-size: 14px;width: 100%;">
+                                        <i id="saveAndCloseButton" class="fa fa-ellipsis-v" style="font-size: 24px;color: rgb(255, 255, 255);cursor: pointer;" aria-hidden="true"></i>
+                                    </span>
+                                    <mat-menu #savemenu="matMenu" xPosition="before">
+                                        <button [disabled]="disabledReviewDelta" mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="deltaReviewClick()">Review Delta</button>
+                                        <button [disabled]="disabledSaveClose" mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="saveNSOConfiguration()" >Save and Close</button>
+                                    </mat-menu> 
+                             </div>
+                        </div>
+                    </div>
+
+            <div class="container-fluid" style="background-color: #f4f4f4;">
+                <div class="row col-xs-12">
+                    <div class="col-md-4" style="background: white">
+                        
+                        <div id="nsosidenavDrawer" class="nsosidenav">
+                                    <div class="nso-navigation-drawer-header">
+                                        <span class="navigation-drawer-header-title">Chamber {{nsoSelectedFecetName}}</span>
+                                        <div style="float: right">
+                                        <span [matMenuTriggerFor]="menu" style="cursor: pointer" style="font-size: 14px;width: 100%;">
+                                        <mat-icon id="clearAllValuesIcon" class="nso-drawer-header-content-menu-icon" >more_vert</mat-icon></span>
+                                        <mat-menu #menu="matMenu" xPosition="before">
+                                            <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="clearAllValues()">Clear All Values</button>
+                                            <!-- <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="navigateToExplorerFromDrawer()">Explorer</button> -->
+                                        </mat-menu> 
+                                        </div>
+                                        <a id="navigationDrawerCloseButton" class="drawer-closebtn" (click)="closeNavigationDrawer()">&times;</a>  
+                                    </div>
+                                    <div class="nso-navigation-drawer-body" style="margin-top: 60px;">
+                                        <mat-accordion>
+                                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px; padding-left: 3%;padding-right: 3%;box-shadow: 0 0 0 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12);" [expanded]="true">
+                                                <mat-expansion-panel-header style="padding-right: 30px;">
+                                                    <mat-panel-title>CHAMBER</mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <!-- <form [formGroup]="findNSOChamberForm">
+        
+                                                        <mat-form-field style="width: 100%;margin-bottom: 5px;"> 
+                                                                <input #findNSOChmberSearchInput type="text" placeholder="Search" matInput  [matAutocomplete]="auto" (keyup)="onNSOSearchKeyUp($event)">
+                                                                <img  style="float: right; width: 20px; margin-top: -5%; cursor: pointer;position: relative;" src="assets/close@3x.png" (click)="findNSOChmberSearchClear();">
+                                                                <mat-autocomplete #auto="matAutocomplete">
+                                                                  <mat-option *ngFor="let searchNSOExplorerChamber of searchNSOExplorerChambersList.items" (click)="searchNSOExplorerChamberClick(searchNSOExplorerChamber);" [value]="searchNSOExplorerChamber.name">
+                                                                    {{searchNSOExplorerChamber.name}}
+                                                                  </mat-option>
+                                                                </mat-autocomplete>
+                                                        </mat-form-field>
+                                                        <mat-form-field style="width: 100%; margin-bottom: 5px;">
+                                                                <mat-label>Select Chamber Body</mat-label>
+                                                                <mat-select  name="chamber" formControlName="findNSOChamberFormBody">
+                                                                    <mat-option *ngFor="let chamber of nsoChambersByFamilyID.items" (click)="selectedNSOChamberItem(chamber)" [value]="chamber.name">
+                                                                    {{chamber.name}}
+                                                                  </mat-option>
+                                                                </mat-select>
+                                                        </mat-form-field>
+                                                        <mat-form-field style="width: 100%; margin-bottom: 5px;"> 
+                                                            <mat-label>Select Chamber Family</mat-label>
+                                                            <mat-select name="Family" #selectNSOChamberFamilyDropdown>
+                                                                    
+                                                              <mat-option *ngFor="let family of nsoExplorerChambersFamily.items" (click)="selectedNSOChamberFamilityItem(family)" [value]="family.name">
+                                                                {{family.name}}
+                                                              </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        
+                                                          <mat-form-field style="width: 100%; margin-bottom: 5px;">
+                                                            <mat-label>Select Chamber</mat-label>
+                                                            <mat-select  name="chamber" formControlName="findNSOChamberFormName">
+                                                                <mat-option *ngFor="let chamber of nsoChambersByFamilyID.items" (click)="selectedNSOChamberItem(chamber)" [value]="chamber.name">
+                                                                {{chamber.name}}
+                                                              </mat-option>
+                                                            </mat-select>
+                                                          </mat-form-field>
+                                                      </form> -->
+        
+
+                                                      <form [formGroup]="nsoFormGroup">
+                                                        <mat-form-field [hidden]="isSelectedABPositions" style="width: 100%; margin-bottom: 5px;">
+                                                            <mat-label>Select Chamber Family</mat-label>
+                                                            <mat-select id="selectChamberFamilyDropdown" [disabled]="disabledChamberFamilyForModify" placeholder="familyCategory" formControlName="formGroupChamberFamilyValue">
+                                                                <!-- <mat-option>--</mat-option> -->
+                                                                <mat-option *ngFor="let familyCategory of nsoExplorerChambersFamily.items" (click)="selectedNSOChamberFamilityItem(familyCategory)" [value]="familyCategory">
+                                                                    {{familyCategory.name}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+
+                                                        <mat-form-field [hidden]="isSelectedABPositions" style="width: 100%; margin-bottom: 5px;">
+                                                            <mat-label>Select Chamber</mat-label>
+                                                            <mat-select id="selectChamberDropdown" placeholder="chamberCategory" formControlName="formGroupChamberValue">
+                                                                <!-- <mat-option>--</mat-option> -->
+                                                                <mat-option *ngFor="let chamberCategory of nsoChambersByFamilyID" (click)="selectedNSOChamberItem(chamberCategory)" [value]="chamberCategory">
+                                                                    {{chamberCategory.name}}  {{displayGotCode(chamberCategory.gotCode)}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+
+                                                        <mat-form-field [hidden]="!isSelectedABPositions" style="width: 100%; margin-bottom: 5px;">
+                                                            <mat-label>Select Chamber</mat-label>
+                                                            <mat-select id="selectChamberDropdown" placeholder="chamberCategory" formControlName="formGroupChamberValue">
+                                                                <!-- <mat-option>--</mat-option> -->
+                                                                <mat-option *ngFor="let chamberCategory of chambersForAB" (click)="selectedNSOChamberABItem(chamberCategory)" [value]="chamberCategory">
+                                                                    {{chamberCategory.name}}  {{displayGotCode(chamberCategory.gotCode)}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        </form>
+
+
+                                                      <!-- <div *ngIf="!findNSOChamberForm.valid; else enable">
+                                                            <button type="button" [disabled]="!findNSOChamberForm.valid" style="cursor: not-allowed;font-size: 17px;" 
+                                                            class="btn custom-button-width col-sm-12" >Review Changes</button>
+                                                        </div> -->
+                                        
+                                                       <div [hidden]="isReviewChangesButtonVisible" style="margin-top: 10px;">
+                                                        <button id="reviewChangesButton" type="button" class="btn review-button col-sm-12" (click)="ReviewChanges()">Review Changes</button>    
+                                                        <label id="revertChamberButton" class="labelRevert" (click)="revertChamber()">Revert</label>
+                                                        </div>
+        
+                                            </mat-expansion-panel>
+                                        </mat-accordion>
+                                    </div>
+                        </div>
+
+                        <mat-accordion>
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="true">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>CHAMBERS</mat-panel-title>
+                                </mat-expansion-panel-header>
+                                      
+                                <mat-nav-list>
+                                    <mat-list-item class="nsofacetsmatListItem" *ngFor="let fecets of nsoConfigFecets; let i=index"  (mouseover)="nsoChamberListItemMouseover(i)" (mouseleave)="nsoChamberListItemMouseLeave(i)">
+                                        <div class="nsofacetsindexPosition" >{{fecets.facet_name}}</div>
+                                            <div style="width: 85%;text-align: left">
+                                                
+                                                <span  *ngIf="fecets.chamber_name === '';else chamberName"  [ngClass]="{'nsofecetNameColor': fecets.chamber_name === '' }">empty</span>
+                                              
+                                                <ng-template #chamberName>
+                                                    <span [ngStyle]="{'color':getSVGItemColor(fecets.chamber_name)}" >{{fecets.chamber_name}} {{displayGotCode(fecets.got_code)}}</span>
+                                                </ng-template> 
+                                            </div>
+                                                <span class="nsoAddIconColor" (click)="addNSOChamber(fecets,i)" *ngIf="fecets.chamber_name === '';else contexMenu" [ngClass]="{'nsoAddIconHoverColor': nsoChamberListMouseoverPosition === i}"><mat-icon id="addChamberIcon{{i}}">add</mat-icon></span>
+                                              
+                                                <ng-template #contexMenu>
+                                                    <div style="float: right">
+                                                        <span id="contextMenuIcon{{i}}" [matMenuTriggerFor]="menu" style="font-size: 14px;width: 100%;cursor: pointer">
+                                                            <mat-icon>more_vert</mat-icon></span>
+                                                            <mat-menu #menu="matMenu" xPosition="after">
+                                                            
+                                                                <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="viewDetailsClick(fecets,i)">Upgrade</button>
+                                                                <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="upgradeSelectedChamber(fecets,i)">Config Change</button>
+                                                                <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="removeSelectedChamber(fecets,i)">Remove</button>
+                                                                <!-- <button mat-menu-item style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="navigateToExplorerFromMenu(fecets, i)">Explorer</button> -->
+        
+                                                            </mat-menu> 
+                                                    </div>
+                                                </ng-template>
+                                              
+                                                <!-- <mat-divider></mat-divider> -->
+                                    </mat-list-item>     
+                                </mat-nav-list>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>PASSTHROUGHS</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>BUFFER CHAMBER</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>TRANSFER CHAMBER</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>SWILL</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>REMOTES</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+
+                            <mat-expansion-panel style="margin-left: -15px;margin-right: -15px;padding: 0px;" [expanded]="false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>FEATURES</mat-panel-title>
+                                </mat-expansion-panel-header>
+                            </mat-expansion-panel>
+                          
+                        </mat-accordion>
+                    </div>
+
+                    <mat-progress-spinner class="nsoSvgImageBlock" style="margin-top: 230px; margin-left: auto; margin-right: auto; margin-bottom: auto;" [value]="spinnerValue" [hidden]="!isImageHidden" [mode]="spinnerMode"></mat-progress-spinner>
+
+                    <div class="col-md-8 nsoSvgImageBlock" [hidden]="isImageHidden">
+                        <mat-icon  id="object" class="nsobuilderSVGIconCSS" svgIcon="nsoproductImageIcon">
+                                <object data="imageURL" type="image/svg+xml" hidden></object>
+                        </mat-icon>
+                    </div> <br/><br/><br/><br/>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+
+

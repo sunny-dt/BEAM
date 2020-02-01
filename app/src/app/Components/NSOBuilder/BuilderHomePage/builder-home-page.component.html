@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <mat-card class="builder-card" style="padding: 16px;left: 0;right: 0;margin: auto;">
+        <div class="inner">
+
+            <form [formGroup]="builderCustomerIDForm">
+                <div class="row col-md-12">
+                    <mat-form-field class="customerIDField col-md-5" >
+                        <label class="inputCustomerIDLabel" for="postal-code">Customer</label>
+                        <!-- <mat-select class="selectCustomer" (click)="fetchCustomer();" [(value)]="selectCustomerPosition" (ngValueChange)="onCustomerListChange($event, selectCustomerPosition)" formControlName="builderCustomerIDFormControl">
+                            <mat-option class="matOptions" *ngFor="let type of selectCustomerList.items;let selectCustomerPosition=index" [value]="selectCustomerPosition"  (click)="selectCustomeridclick(type);">{{type.name}}</mat-option>
+                        </mat-select> -->
+                        <input id="builderCustomerName" style="font-size:14px; margin-top: 3%; color: black"  matInput  #customerInput formControlName="builderCustomerIDFormControl"  [matAutocomplete]="auto" (keyup)="onCustomerSearchKeyUp($event)" [(ngModel)]="customerName">
+                        <img style="position: absolute; right: -5px; top: 34px; bottom: 0; margin: auto; width: 23px; text-align: center; cursor: pointer;"  src="assets/close@3x.png" (click)="clearCustomerSearch();">
+                    
+                        <mat-autocomplete  #auto="matAutocomplete"  style="max-height: 160px !important;" >
+                            <div style="max-height: 160px !important;">
+                                <mat-option class="optionsTitles" *ngFor="let customer of searcCustomerDropDownList" (click)="searchCustomerClick(customer);" >
+                                    {{customer.name | uppercase}}
+                                </mat-option>
+                            </div>
+                        </mat-autocomplete>
+                    </mat-form-field> <br>
+                </div>
+            </form>
+        </div>
+        <br><br> <br><br>
+
+        <hr>
+        <div class="row matActions">
+            <mat-card-actions class="text-right col-md-12" style="margin-left: 0px;margin-right: 0px;">
+                <div *ngIf="!custSubmitButtonEnable; else enable">
+                    <button type="button" style="float: right" class="btn submit-btn col-sm-2" [disabled]="!custSubmitButtonEnable">SUBMIT</button> 
+                </div>
+
+                <ng-template #enable>
+                    <button type="button"  class="btn submit-btn col-sm-2 enable-submit-button" [disabled]="!custSubmitButtonEnable" (click)="next()">SUBMIT</button>
+                </ng-template>
+
+                <button class="btn back-btn col-sm-2 backButton"  type="button" (click)="backButton()">BACK</button> <br/>
+            </mat-card-actions>
+        </div>
+    </mat-card>
+</div>

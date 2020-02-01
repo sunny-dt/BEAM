@@ -1,0 +1,45 @@
+<mat-toolbar>
+  <span>Configuration</span>
+  <span class="fill-remaining-space"></span>
+   
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <mat-card class="card"  style="padding:16px">
+      <div class="mainBlock">
+    
+          <div class="row col-xs-12 ">
+                <div  class="col-md-4" >
+                    <mat-nav-list class="matNavListPadding">
+                          <mat-list-item class="configurationfacetsmatListItem" *ngFor="let fecets of coreDataConfigurationFecets; let i=index" >
+                              <div class="configurationfacetsindexPosition" style="width: 5%; text-align: left;">{{fecets.facet_name}}</div>
+                                  <!-- <div style="width: 85%;text-align: left">
+                                    <span>{{fecets.chamber_name}}</span>
+                                  </div> -->
+                                  <div style="width: 85%;text-align: left">
+                                                
+                                    <span *ngIf="fecets.chamber_name === '';else delete">empty</span>
+                                  
+                                    <ng-template #delete>
+                                        <span>{{fecets.chamber_name}} {{displayGotCode(fecets.got_code)}}</span>
+                                    </ng-template>
+                                  </div>
+                          </mat-list-item>           
+                      </mat-nav-list>
+                  </div>
+
+                <div class="col-md-8 configurationsvgImageBlock"  >
+                    <mat-icon  id="object" class="configurationSVGIconCSS" svgIcon="productImageIcon">
+                        <object data="imageURL" type="image/svg+xml" hidden></object>
+                    </mat-icon>
+                </div> <br/><br/><br/><br/>
+            
+          </div>
+     
+        </div>
+  
+    </mat-card>
+</mat-dialog-content>

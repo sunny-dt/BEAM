@@ -1,0 +1,54 @@
+.upgradeChamberButton{
+
+    float: right;
+    font-size: 12px;
+}
+
+.upgradeChamberDoneButton{
+
+    background: #4599c5;
+    color: rgb(255, 255, 255);
+    float: right;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.upgradeChamberDoneButton:hover {
+
+    background-color: #0d6b9c;
+    color: #fdfdfd;
+}
+
+.upgradeChamberCancelButton{
+
+    font-size: 12px;
+}
+
+.upgradeChamberCancelButton:hover {
+
+    background: rgb(184, 180, 180); 
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn.focus:active,
+.btn:active:focus,
+.btn:focus {
+    
+    outline: 0 !important;
+    outline-offset: 0  !important;
+    background-image: none  !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none  !important;
+}
+
+:host ::ng-deep span.mat-select-value-text.ng-star-inserted {
+
+    margin-left: 7px !important;
+}
+
+:host ::ng-deep .mat-select-trigger {
+    
+    margin-top: 4px !important;
+}

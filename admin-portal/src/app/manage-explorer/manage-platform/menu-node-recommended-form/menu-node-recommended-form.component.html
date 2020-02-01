@@ -1,0 +1,69 @@
+<mat-toolbar>
+  <span>Update Recommended Nodes</span>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button style="margin-right:10px;" color="primary" (click) = "onSave()">Save</button>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- <div class="container"> -->
+<mat-dialog-content>
+    <mat-card class="card"  style="padding:16px">
+      <div>
+  
+        <div style="display: flex;
+        justify-content: space-between;
+        width: 100%;">
+             
+        </div>
+       
+        <div class="mainBlock">
+      
+            <div class="row col-xs-12 ">
+              
+              <div class="col-md-12 leftBlock">
+                
+      
+                <mat-form-field  style="width: 100%;" >
+    
+                  <label style="font-size: 14px;" >Select Nodes to Recommend</label>
+    
+                  <mat-chip-list #chipList>
+                    <mat-chip style="background-color:#ccc874ba"  *ngFor="let node of selectedNodesList" [selectable]="nodesSelectable"
+                      [removable]="removable" (removed)="nodesRemove(node)">
+                      {{node.name}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+          
+                    <input class="inputField" #nodeInput [formControl]="nodesFormControl" [matAutocomplete]="nodeauto" [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onKeyPress($event)" >
+                    <span class="errorLabelClose" [hidden]="!showSelectedNodesClearButton" (click)="clearAllSelectednodes()">
+                      <mat-icon style="color:#4599c3" class="matIcon">close</mat-icon>
+                    </span>
+                  </mat-chip-list>
+          
+                  <mat-autocomplete #nodeauto="matAutocomplete" (optionSelected)="nodeOptionSelected($event)">
+                    <mat-option *ngFor="let node of dropDownNodesList;let i = index" [value]="node">
+                      {{node.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+    
+                <span  *ngFor="let node of nodesList; let i = index">
+                  <mat-chip style="background-color:#abd6e4;margin-right: 5px;font-size: 14px;margin-bottom: 5px;cursor: pointer;"  (click)="nodesOnClick(node,i)">{{ node.name }}</mat-chip>
+                <!-- <a style="padding:5px">{{ facets.name }}</a> -->
+                </span>
+    
+              </div>
+    
+             
+            </div>
+      
+        </div>
+      </div>
+  
+    </mat-card>
+  <!-- </div> -->
+
+</mat-dialog-content>

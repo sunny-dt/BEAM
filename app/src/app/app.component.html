@@ -1,0 +1,108 @@
+<div class="home-container">
+  <mat-toolbar color="primary" *ngIf="isHeaderVisibility$ | async as isHeaderVisibility" class="home-toolbar" style="position:relative; z-index: 0;" #firstNameInput>
+    <div class="launch_header row">
+      <div class="header_div_one " style="display: inherit;">
+        <label [hidden]="showButtons" style="width:12%"></label>
+        <button  [hidden]="!showButtons"  mat-icon-button (click)="sidenav.toggle()" shadow-none class="showButton" style="margin-left: 3%; outline: none;">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <!-- <button hidden type="button" style="margin-left: 3%; margin-right: 1%; background: #4599c3; color: #FFFFFF;" class="btn btn-circle shadow-none" >SA</button>
+        <img hidden style="width: 12px; height: 8px; margin-left: 1%; cursor: pointer;" src="assets/user_down_arrow.png" > -->
+        <div [hidden]="hideUserInfo">
+          <mat-icon id="userLogo" [matMenuTriggerFor]="menu" class="material-icons" style="margin-left: 3%; margin-right: 1%; color: #4599C3; margin-top: 6px; float: left; font-size: xx-large; cursor: pointer;">account_circle</mat-icon>
+          <mat-menu #menu="matMenu" xPosition="before">
+              <button [disabled]='disableTab' mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="logout()">Log Out</button>
+          </mat-menu> 
+          <span style="color: rgba(0, 0, 0, 0.8); font-size: 16px; margin-top: 6px; margin-left: 15%; display: inline-flex;">{{amatUserName}}</span><br>
+        </div>
+      </div>
+
+      <div class="header_div_two" style="text-align: center">
+        <img id="amatLogo" style="width: 32px; height: 32px; margin-top: 8px; cursor: pointer;" (click)="logoClick()" src="assets/amat_logo.png">
+      </div>
+
+      <div [hidden]="!showButtons" class="header_div_three">
+        <i class="material-icons search-button" (click)="search()">search</i>
+      </div>
+    </div>
+  </mat-toolbar>
+
+  <form [formGroup]="form" [hidden]="isSearchBarHidden" style="position: relative;min-height: 60px;">
+    <input  #myInput [autofocus]="focus" style="min-height: 60px; width:100%;border-width: 1px 1px 1px 1px; outline: none;padding-left: 15px;" 
+    type="text" formControlName="searchTerm" placeholder="Enter search term" aria-label="Number" 
+    matInput  [matAutocomplete]="auto" >
+    <img class="close-icon" src="assets/close@3x.png" (click)="searchback();">
+    <mat-progress-bar [hidden]="hideProgressBar" style="height: 12px; background: #FFFFFF; width: 100%;" color="primary" mode="indeterminate" value="50" bufferValue="75"></mat-progress-bar>
+    <mat-autocomplete class="mat-auto" #auto="matAutocomplete">
+      <div>
+        <label *ngIf="showQuickLinkTitle()" class="search-options-title">QUICK LINKS</label>
+        <mat-option class="optionsTitles" *ngFor="let links of searchDropDownList.links" [value]="links.name" (click)="onClickQuickLinkItem(links)">
+        <div style="display: inline-flex; width: 100%;">
+          <h6 style="margin-top: 14px;">{{links.name}}</h6> <span style="margin-left: 8px; margin-right: 8px">—</span>
+          <div style="display: inline-block;" *ngFor="let pathComponent of links.full_path_components; let i = index">
+            <span [ngClass]="(i != links.full_path_components.length-1) ? 'QuickLinkTitlePath' : 'QuickLinkTitlePathLastItem'">{{pathComponent}}<span *ngIf="i != links.full_path_components.length-1" style="margin-left: 5px; margin-right: 5px">/</span></span>
+          </div>
+        </div>
+      </mat-option>
+
+      <label *ngIf="showSuggestedLinkTitle()" class="search-options-title">SUGGESTED</label>
+      <mat-option class="optionsTitles" *ngFor="let searchoption of searchDropDownList.keywords" [value]="searchoption.display_term" (click)="onClickSuggestedItem(searchoption)">
+          <h6 [innerHTML]="searchoption.display_term | highlight: highlightSearchTerm"></h6>
+      </mat-option>
+      </div>
+    </mat-autocomplete>
+  </form>
+
+  <mat-sidenav-container style="height: 100%">
+    <mat-sidenav #sidenav fixedInViewport="Fixed">
+      <div class="sidenav-main-dev">
+
+        <div class="sidenav-close-button" >
+          <mat-icon (click)="sidenav.toggle()">close</mat-icon>
+        </div>
+        <div class="sidenav-menu-items" >
+          
+          <mat-tree  [dataSource]="dataSource" [treeControl]="treeControl">
+            <mat-tree-node class="mat-tree-node-class"  *matTreeNodeDef="let node" matTreeNodePadding 
+            (click)="onItemSelected(node)" [ngClass]="{ 'background-highlight': activeNode === node }">
+            <span style="margin-left: 15px;"> {{node.name}} </span>
+              <span  disabled></span>
+            </mat-tree-node>
+          
+            <mat-tree-node class="mat-tree-node-class" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding  matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name"
+            (click)="onItemSelected(node)"  [ngClass]="{ 'background-highlight': activeNode === node }">
+             <span style="margin-left: 15px"> {{node.name}} </span>
+              <span class="mat-tree-arrow-class" >
+                <mat-icon class="mat-icon-rtl-mirror" style="margin-right: 15px">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </span>
+            </mat-tree-node>
+          </mat-tree>
+        </div>
+        
+        <div hidden class="sidenav-bottom-user-info row">
+          <div style="width: 40%; margin-top: 10px; text-align: center;">
+            <button type="button" style="background: #4599c3; font-size: 16px;
+            margin-left: 20px; color: #FFFFFF;" class="btn btn-circle-side-menu shadow-none" >SA</button>
+          </div>
+          <div style="width: 60%; margin-top: 18px;">
+              <span style="color: rgba(0, 0, 0, 0.8); font-size: 16px;">AmatUser</span><br>
+              <span style="color: #4599c3; font-size: 16px;">Log Out</span>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="background-color: #f4f4f4;">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<!-- <div [class.hidden]="!showLoader"> -->
+    <!-- <div class="loader-overlay" > -->
+      <div *ngIf="showLoader" (click)="searchback()" class="loading"></div>
+    <!-- </div>
+</div> -->

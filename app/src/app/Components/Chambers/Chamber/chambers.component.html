@@ -1,0 +1,83 @@
+<router-outlet></router-outlet>
+
+<div class="container">
+  <mat-card class="card"  style="padding:16px">
+    <div class="matContainer">
+      <mat-form-field class="chip-list  mat-form-field-custom">
+
+        <label class="selectChambersName">Select Chambers</label>
+        <mat-chip-list #chipList>
+          <mat-chip class="mat_chip" *ngFor="let chamber of selectedChambersList" [selectable]="false"
+            [removable]="removable" (removed)="chambersRemove(chamber)" (click)="updateChambersByID(chamber)">
+            {{chamber.name}} ({{chamber.got_code}})
+            <div class="chamberQtyCircle">{{chamber.qty}}</div>
+          </mat-chip>
+
+          <input #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onKeyPress($event)" (focus)="onSearchChamberfocus()" (focusout)="outSearchChamberfocus()">
+          <span style="cursor: pointer;" class="errorLabelClose" [hidden]="!showSelectedChambersClearButton" (click)="clearAllSelectedChambers()">
+            <mat-icon id="clearButton" style="cursor: pointer;" class="blue">close</mat-icon>
+          </span>
+        </mat-chip-list>
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
+          <mat-option *ngFor="let chamber of dropDownChambersList;let i = index" [value]="chamber">
+            {{chamber.name}} ({{chamber.got_code}})
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <label [hidden]="showErrorLabelCondition" class="errorLabel">You have reached the maximum amount of chambers.</label>
+
+      <div class="matContainer comapatableChambersList">
+
+        <p class="chamberNames" [hidden]="!showChambersList" *ngFor="let chambers of chambersList; let i = index"
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+        [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
+          <a id="chambers{{i}}" style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
+        </p>
+
+        <p class="matchingChambersLabel" [hidden]="!showCompatibilityChambersTitle">Known Matching Chambers</p>
+
+        <p class="chamberNames" [hidden]="!showCompatibilityChambersList" *ngFor="let chambers of compatibilityChambersList; let i = index"
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+        [class.active]="selectedIndex === i" (click)="filterChambersByID(chambers)">
+          <a id="knownChambers{{i}}" style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="matContainer">
+
+      <div [ngClass]="{'isRnDChambersTopMarginHigh' : isRnDChambersEnabled == true, 'isRnDChambersTopMarginLow' : isRnDChambersEnabled == false }">
+        <p class="incompatableChambers" [hidden]="!showRnDChamberTitle">R&D Configurations</p>
+
+        <p class="inCompatableChamberNames" 
+
+        [ngClass]="{'RnDChamberSelect' : isRnDChamberLoading == true, 'RnDChamberDisabled' : isRnDChamberLoading == false }"
+
+        [hidden]="!showRnDChamberList" *ngFor="let chambers of rndOnlyChambersList; let i = index"
+          [class.active]="selectedIndex === i" (click)="filterRnDChambersByID(chambers)">
+          <a id="R&DChambers{{i}}" style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="matContainerproductsList matContainer">
+      <p class="chamberNames" *ngFor="let chambers of finalProductsList">
+        <a style="padding:5px">{{ chambers.name }} ({{chambers.got_code}})</a>
+      </p>
+    </div>
+
+    <hr>
+    <div class="row matActions">
+      <mat-card-actions class="text-right col-md-12 mat-card-actions">
+
+        <button class="btn  col-sm-2" style="margin-right: 25px;" type="button" (click)="backButton()">BACK</button>
+        <button class="btn custom-button-width col-sm-2" style="margin-right: 25px;" [disabled]="!isButtonLabelCondition"
+          [ngClass]="{'submitButtonEnableColor' : isButtonLabelCondition == true, 'submitButtonDisabledColor' : isButtonLabelCondition == false }"
+          type="button" (click)="submitButton()">SUBMIT</button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>

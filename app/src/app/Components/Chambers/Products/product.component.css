@@ -1,0 +1,65 @@
+.rightBlock {
+
+    margin-top: 21px;
+}
+
+.leftBlock {
+
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+}
+
+.SVGIconCSS {
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 50%;
+}
+
+.matListItem {
+
+    margin-left: -16px;
+    font-size: 14px;
+    color:#65A7C4;
+}
+
+.borderLine {
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(161, 161, 161);
+}
+
+.card>hr {
+
+    margin-right: -16px;
+    margin-left: -16px;
+}
+
+.productIDTopMargin {
+
+    margin-top: 10px;
+}
+
+.indexPosition {
+
+    margin-right: 15px;
+    font-family: Roboto-Medium;
+    font-size: 16px;
+    color: rgba(0,0,0,0.87);
+    font-weight: bold;
+}
+
+.mat-tab {
+
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 1;
+    flex-grow: 1;
+}

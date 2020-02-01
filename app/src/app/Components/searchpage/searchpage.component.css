@@ -1,0 +1,316 @@
+
+.search-Body {
+
+    height: 754px;
+    background-color: #f4f4f4;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.body-left-panel {
+
+    padding-left: 8%;
+    padding-right: 7%;
+    margin-top: 7%;
+}
+
+.arrowIcon {
+
+    width: 20px;
+    height: 20px;
+    font-size:23px;
+    margin-left: 5px;
+    cursor: pointer;
+
+}
+
+.results-title {
+    
+    margin-left: -16px;
+    float:left;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.sotyByTitle {
+ 
+    margin-top: -3px;
+    width: 51px;
+}
+
+.body-right-panel {
+
+    margin-top:3%;
+    padding-left: 0px;
+    padding-right: 8%
+
+}
+.right-panel {
+    
+    float: right;
+    width: 65%;
+}
+
+.closeBittonIcon {
+
+    position: relative;
+    right: 30px;
+    top: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+    height: 40px;
+    float: right !important;
+    margin-right: 0px;
+}
+
+.toggleButton {
+
+    width: 40px;
+    height:40px;
+    cursor: pointer;
+}
+
+.formFiled {
+
+    margin-top: -10px;
+   /*  padding-left: 20px; */
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #d8d8d8;;
+    background: white;
+}
+
+.gridViewBox {
+
+    margin-left: 16px;
+    margin-right: 0px;
+    margin-top: 4%;
+    margin-right: -20px;
+    text-align: left;
+}
+
+.innerGridViewBox {
+
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    background-color: #d8d8d8;
+    height: 200px;
+    margin-bottom: 70px;
+    color: #fff;
+    border-right: 20px solid #f4f4f4;
+    cursor: pointer;
+}
+
+.hierachy-title {
+
+    padding-left: 3%;
+    margin: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background: #4599c3;
+    height: 0px;
+    transition: ease-in-out 200ms height;
+}
+
+.hierachy-title.opened {
+
+    background: #4599c3;
+    height: 40px;
+    transition: ease-in-out 400ms height;
+}
+
+.grid-item-title-block {
+
+    margin: auto;
+    bottom: -40px;
+    left: 0;
+    padding-top: 6px;
+    height: 40px;
+    position: absolute;           
+}
+
+.show-more-button {
+
+    /* position: relative; */
+    /* margin: -20px -50px;  */
+    margin-top: 70px;
+    margin-bottom: 8%;
+    width: 105px;
+    height: 40px; 
+    border-radius: 5px;
+    box-shadow: none;
+    background: #4599c3;  
+    font-size: 14px;
+    font-weight: 600;
+    /* left: 50%; */
+}
+.listViewBlock {
+
+    width: 100%; 
+    margin-left: -15px; 
+    margin-top: -15px;
+    margin-bottom: 5%;
+}
+
+.innerListViewBlock {
+
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    width: 100%; 
+    height: 80px; 
+    display: inline-flex;
+}
+
+.listViewImageBlock {
+
+    background:rgba(0, 0, 0, 0.25);
+    width: 80px;
+    height: 80px
+}
+
+.listViewTitlesBlock {
+
+    width: 100%; 
+    /* padding-top: 15px;  */
+    padding-left: 30px; 
+    /* padding-bottom: 15px;  */
+    /* padding-right: 30px; */
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+    display: block;
+    overflow: hidden;
+    /* padding-top: 2%; */
+}
+
+.listViewTitle {
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline;
+    overflow: hidden;
+    padding-right: 5%;
+}
+
+.tile_image_block {
+ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* float: right; */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* right: 50px; */
+    margin: auto;
+}
+
+.tile_image_block img {
+
+    width: 100%;
+    max-height: 100%;
+}
+
+.listViewSecondTitle {
+
+    font-size: 14px; 
+    color: rgba(0, 0, 0, 0.8); 
+    /* text-overflow: ellipsis; 
+    white-space: nowrap; 
+    display: inherit; 
+    overflow: hidden;  */
+}
+
+.listIcon {
+
+    opacity: 0.2;
+}
+
+.gridIcon {
+
+    opacity: 0.2;
+}
+
+.listviewItems {
+
+    background: #4599c3;
+}
+
+
+::ng-deep.mat-autocomplete-panel {
+  
+    max-height: 320px !important;
+  }
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+.mat-chip-list-wrapper {
+
+    margin: 0px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #4599c3 !important;
+}
+  
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #4599c3 !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+} 
+
+::ng-deep .mat-chip-list-wrapper input.mat-input-element {
+    
+    padding-left: 15px;
+}
+
+::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
+    margin: 4px;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .body-left-panel {
+
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .tile_image_block img {
+        
+        width: unset;
+        max-height: 100%;
+    }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+}

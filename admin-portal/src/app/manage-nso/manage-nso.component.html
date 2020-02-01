@@ -1,0 +1,12 @@
+<nav mat-tab-nav-bar>
+  <a mat-tab-link (click)="navigateToUpgradeRules()" [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == '1'}">
+    Upgrade Rules
+  </a>
+
+  <a mat-tab-link (click)="navigateToConfigChangeRules()" [ngClass]="{'mat-nav-bar-item-is-active': currentSelectedTab == '2'}">
+    Config Change Rules
+  </a>
+</nav>
+
+<router-outlet></router-outlet>
+

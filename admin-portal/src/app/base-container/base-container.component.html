@@ -1,0 +1,80 @@
+
+<mat-toolbar color="primary">
+
+    <span class="logoImage">
+        <img src="assets/Logo_AppliedMaterials.png" width="90px" height="25px" />
+    </span>
+    <!-- <span class="g3ProductIDTool">BEAM Platform (Admin)</span> -->
+    <span style="margin-left: 20px;">
+        <mat-icon id="userLogo" [matMenuTriggerFor]="usermenu" class="material-icons" style="margin-left: 3%; margin-right: 1%; color: #4599C3; margin-top: 6px; float: left; font-size: xx-large; cursor: pointer;">account_circle</mat-icon>
+        <mat-menu #usermenu="matMenu" xPosition="before">
+            <button mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="logout()">Log Out</button>
+        </mat-menu> 
+        <span style="color: white; font-size: 16px; margin-top: 6px; margin-left: 5%; display: inline-flex;">BEAM Platform (Super Admin)</span><br>
+    </span>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+        <span class="currentUserInfo" *ngIf = "userService.user?.logonUser">{{userService.user.logonUser}}</span>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+        <!-- <button style="margin-left:10px; margin-right:10px" mat-raised-button routerLink="chambers" color="primary" routerLinkActive="mat-accent">Chambers</button> -->
+
+        <!-- <button style="margin-left:10px; margin-right:10px" mat-raised-button routerLink="builder" color="primary" routerLinkActive="mat-accent">Builder</button>
+        <button style="margin-left:10px; margin-right:10px" mat-raised-button routerLink="manage-explorer" color="primary" routerLinkActive="mat-accent">Explorer</button>
+        <button style="margin-left:10px; margin-right:10px" mat-raised-button routerLink="analytics" color="primary" routerLinkActive="mat-accent">Analytics</button>
+        <button style="margin-left:10px; margin-right:10px" mat-raised-button routerLink="mappings" color="primary" routerLinkActive="mat-accent">Mapper</button> -->
+
+        <button style="margin-left:10px; margin-right:10px; width: 80px; height: 35px; border: 1px white solid; border-radius:5px;" 
+        mat-raised-button routerLink="builder" color="white" routerLinkActive="mat-accent" matTooltip="Builder" matTooltipPosition="below">
+            <img src="assets/combined-shape@3x.png" style="height: 100%; float: right;"/>
+        </button>
+        <button style="margin-left:10px; margin-right:10px; width: 80px; height: 35px; border: 1px white solid; border-radius:5px;"
+        mat-raised-button routerLink="manage-explorer" color="white" routerLinkActive="mat-accent" matTooltip="Explorer" matTooltipPosition="below">
+            <img src="assets/explorer-image@3x.png" style="height: 100%; float: right;" />
+        </button>
+        <button [disabled]="true" style="margin-left:10px; margin-right:10px; width: 80px; height: 35px; border: 1px white solid; border-radius:5px; background: gray; cursor: no-drop;"
+        mat-raised-button routerLink="analytics" color="white" routerLinkActive="mat-accent" matTooltip="Analytics" matTooltipPosition="below">
+            <img src="assets/analytics-img@3x.png" style="height: 100%; float: right;" />
+        </button>
+        <button style="margin-left:10px; margin-right:10px; width: 80px; height: 35px; border: 1px white solid; border-radius:5px;"
+        mat-raised-button routerLink="mappings" color="white" routerLinkActive="mat-accent" matTooltip="Mapper" matTooltipPosition="below">
+            <img src="assets/mapper_lunch_logo@3x.png" style="height: 100%; float: right; width: 40px;" />
+        </button>
+
+        <button style="margin-left:10px; margin-right:10px; width: 80px; height: 35px; border: 1px white solid; border-radius:5px;"
+        mat-raised-button routerLink="core-data" color="red" routerLinkActive="mat-accent" matTooltip="Core Data Manager" matTooltipPosition="below">
+            <img src="assets/core_data.png" style="height: 100%; float: right; width: 40px;" />
+        </button>
+
+        <!-- <button  class="menuButton" mat-icon-button [matMenuTriggerFor]="menuu">
+                <mat-icon>more_vert</mat-icon>
+        </button> 
+      
+        <mat-menu  #menuu="matMenu" xPosition ="before">
+            <label  mat-menu-item style="text-align: center;margin-top: -7px;margin-bottom: -8px;" (click)="showExitDialog();">Exit</label>
+        </mat-menu> -->
+    </div>
+    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+     <mat-icon>menu</mat-icon>
+    </button>
+
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+    <!-- <button mat-menu-item routerLink="chambers">Chambers</button> -->
+    <button mat-menu-item routerLink="builder">Builder</button>
+    <button mat-menu-item routerLink="manage-explorer">Explorer</button>
+    <button [disabled]="true" mat-menu-item routerLink="analytics">Analytics</button>
+    <button mat-menu-item routerLink="mappings">Mapper</button>
+    <button mat-menu-item routerLink="core-data">Core Data Manager</button>
+    <!-- <label  mat-menu-item style="text-align: center;margin-top: -7px;margin-bottom: -8px;" (click)="showExitDialog();">Exit</label> -->
+</mat-menu>
+
+<div>
+    <breadcrumb [allowBootstrap]="true" style="display : none;"></breadcrumb>
+    <ul class="breadcrumb">
+        <li *ngFor="let crumb of breadcrumbs; let last=last"><a *ngIf="!last" [routerLink] = "[crumb.url]" >{{crumb.label}}</a> <span [ngClass]= "{'active' : last}" *ngIf="last">{{ crumb.label }}</span> </li>
+        
+    </ul>
+
+    <router-outlet></router-outlet>
+</div>

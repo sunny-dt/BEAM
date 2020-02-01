@@ -1,0 +1,116 @@
+<div class="mat-elevation-z8">
+
+  <div class="search-div">
+
+    <mat-form-field class="search-form-field" floatLabel="never">
+
+      <input disabled matInput placeholder="Sub Nodes" #input autocomplete="off">
+
+    </mat-form-field>
+      <span class="searchbar-createbtn-spacing">
+          <button id="addSubNodeButton" mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>Add Subnode</button>
+      </span>
+
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort matSortActive="id"
+                      matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.name}}</mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="node_type_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>NODE TYPE</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.node_type_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="node_type_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>NODE TYPE ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.node_type_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="parent_node_id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>PARENT ID</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.parent_node_id}}</mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="lvl">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>LEVEL</mat-header-cell>
+        <mat-cell *matCellDef = "let element">{{element.lvl}}</mat-cell>
+      </ng-container>
+
+
+    <ng-container matColumnDef="created_by_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.created_by_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_by_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.created_by_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modified_by_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>MODIFIED ID</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.modified_by_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modified_by_name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>MODIFIED NAME</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.modified_by_name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="seq">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>SERIAL ORDR</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.seq}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="c_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CREATED</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.c_date | date : 'medium'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="m_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>MODIFIED</mat-header-cell>
+      <mat-cell *matCellDef = "let element">{{element.m_date | date : 'medium'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef = "let row; let i = index;">
+
+          <button id="editSubNodeButton{{i}}" class="left-right-spacing" mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+
+          <button id="deleteSubNodeButton{{i}}" class="left-right-spacing"  mat-icon-button (click)="onDelete(row)" color="warn"><mat-icon>delete_outline</mat-icon></button>
+
+        </mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="4">Loading...</mat-footer-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="noRecords">
+        <mat-footer-cell *matFooterCellDef colspan="4">No Records found</mat-footer-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': !(dataSource.loading$ | async)}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noRecords']" [ngClass]="{'hide': (dataSource.loading$ | async) || menuNodeService.totalChildMenuNodesCount > 0}"></mat-footer-row>
+  </mat-table>
+
+
+  <mat-paginator [length]="menuNodeService.totalChildMenuNodesCount" [pageSize]="20"
+                   [pageSizeOptions]="[6, 10, 20]" [showFirstLastButtons]="true"></mat-paginator>
+
+</div>

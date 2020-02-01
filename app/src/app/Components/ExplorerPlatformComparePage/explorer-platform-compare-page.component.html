@@ -1,0 +1,42 @@
+
+<div class="platform-compare-results-page-body">
+
+    <div class="platform-compare-header-banner-block">
+        <img  src="assets/platform-compare-header-banner@3x.png" style="height:210px;" alt="image">
+        <h1 class="platform-compare-header-banner-title">Platforms</h1>
+    </div>
+
+    <div #header class="platform-compare-sticky" *ngIf="isPlatformCompareStickyVisible" style="padding-left: 8%">
+        <table class="platform-compare-items-table">
+            <tr *ngFor="let compareResult of platformCompareResultList.media_rows_data">
+                <td *ngFor="let media of compareResult.values; let i = index"  style="width: 280px !important">
+                    <p style="margin-top: 14px; font-size: 26px;">{{media.media_title}}</p> 
+                    <h5 class="stricky-explore-button" (click)="navigateToDetailsPage(media.media_title)">Explore</h5>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="platform-compare-results-body">
+            <button *ngIf="isExcelDownloadButtonVisible" type="button" class="platformExcelDownloadButton"  (click)="exportPlatformDataAsXLSX()"><i class="fa fa-download"></i> Download Excel</button>
+        <table class="platform-compare-items-table" style="background-color: #f4f4f4;">
+            <tr *ngFor="let compareResult of platformCompareResultList.media_rows_data">
+                <td *ngFor="let media of compareResult.values; let i = index"  style="width: 280px;height: 350px;">
+                    <p class="platform-compare-item-title">{{media.media_title}}</p> 
+                    <div style="width: 280px;height:280px;">
+                        <img [src]="media.media_file_url" width="100%" height="100%" alt="image">
+                    </div>
+                </td>
+            </tr>
+    
+            <tr *ngFor="let compareResult of platformCompareResultList.other_comparo_rows_data">
+                <td *ngFor="let compareItem of compareResult.values" class="platform-compare-table-column" >
+                    <div class="platform-compare-Table-Column-block" style="width: 280px;">
+                    <h1 class="platform-compare-items-table-titles">{{compareItem.name  | titlecase}} </h1>
+                    <textarea readonly class="platform-compare-items-table-titles-value" cdkTextareaAutosize>{{compareItem.value}}</textarea>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

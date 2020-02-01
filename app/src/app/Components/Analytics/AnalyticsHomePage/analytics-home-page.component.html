@@ -1,0 +1,155 @@
+<div class="container-fluid">
+    <mat-card class="builder-card" style="padding: 0px;left: 0;right: 0;margin: auto; background-color: #fafafa; margin-bottom: 50px;">
+        <div class="inner">
+            
+            <div style="padding-left: 3%;width: 100%;height: 60px; background: rgb(32, 67, 85);padding-top: 18px;text-align: center;color: white;"> 
+                <i id="homePageBack" style="float: left;cursor: pointer; margin-top: 4px;" class="fa fa-arrow-left" (click)="goToPreviousPage()"> </i><span style="float: left;margin-left: 3%;cursor: default;"> <h5 class="analyticsHomePageMobileTitle">Analytics</h5></span> 
+                <!-- <span style="float: left;margin-left: 2%;cursor: default;"><i class="fa fa-angle-right" style="color: #cfcfcf;font-size: 24px;"> </i></span><span style="float: left;margin-left: 2%;cursor: default;"><h5 class="analyticsHomePageMobileTitle">{{subpage}}</h5></span> -->
+
+                <div style="text-align: right; margin-right: 40px;">
+                    <span id="exportExcelButton" [matMenuTriggerFor]="menu" style="cursor: pointer" class="configuration-home-select-config-title"><i class="fa fa-download"></i></span>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                        <button [disabled]='disableTab' mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="exportCurrentData()">Export Filtered Data</button>
+                        <button [disabled]='disableTab' mat-menu-item  style="outline: none; margin-top: -7px; margin-bottom: -8px;" (click)="exportAllData()">Export All Data</button>
+                    </mat-menu> 
+                </div>
+            </div>
+
+             <mat-tab-group id="analytics_mat_tab" style="background: white;"  mat-align-tabs="center" (selectedTabChange)="getSelectedTab($event)">
+                <mat-tab [disabled]='disableTab' *ngFor="let tab of tabsList; let i = index" [label]="tab">
+                    <div style="background-color: #fafafa;" *ngIf="i === selectedTab">
+
+                        <mat-drawer-container autosize>
+                            <mat-button-toggle-group style="margin-bottom: 20px;margin-top: 18px;margin-left: 18px;" #group="matButtonToggleGroup" [value]="pieChartType" (change)="onChartToggleChange(group.value)" >
+                                <mat-button-toggle id="pieToggleButton" [disabled]='disableTab' value="pie"><mat-icon>donut_small</mat-icon></mat-button-toggle>
+                                <mat-button-toggle id="barToggleButton" [disabled]='disableTab' value="bar"><mat-icon>assessment</mat-icon></mat-button-toggle>
+                            </mat-button-toggle-group>
+
+                            <button id="sliderButton" [hidden]="!hideSliderDialog" [disabled]='disableTab' type="button" class="btn btn-primary filter-button" style="margin-left: 15px; height: 48px; margin-top: -2px;" (click)="onClickShowSliderDialog()">
+                                <div style="display: inline-flex; padding-top: 5px;">
+                                    <span>Group</span>
+                                    <span style="margin-left: 5px; margin-right: 10px">0 - {{sliderValue}}</span>
+                                    <span><mat-icon>arrow_drop_down</mat-icon></span>
+                                </div>
+                            </button>
+
+                            <span [hidden]="hideSliderDialog" style="width: 400px; height: 120px; background: white; z-index: 1; position: absolute; margin-top: 18px;margin-left: 18px; padding-top: 20px; padding-bottom: 20px; padding-left: 10px; padding-right: 10px;">
+
+                                <span style="font: normal">Group {{subpage | lowercase}} with units less than: </span>
+                                <span style="float: right; cursor: pointer;"  (click)="onClickHideSliderDialog()"><mat-icon>close</mat-icon></span>
+                                <div style="position: relative; margin-top: 15px">
+                                    <mat-slider id="slider" style="width: 350px" thumbLabel [min]="minSliderValue" [max]="maxSliderValue" step="1" [(ngModel)]="sliderValue" (change)="onSliderValue($event.value)"></mat-slider>
+                                    <span style="position: absolute; top: 0.5em;" [ngStyle]="{'left': progress + '%'}">{{sliderValue}}</span>
+                                </div>
+                            </span>
+                            <div  style="display: inline-flex; float: right; margin-top: 22px; margin-right: 18px;">
+                                <button [disabled]='disableTab' type="button" class="btn btn-primary filter-button" (click)="filterByChambers()"> 
+                                    <!-- <i class="fa fa-caret-down"></i> -->
+                                    <i class="fa fa-filter"></i>
+                                    <span style="margin-right: 10px;margin-left: 10px;">Chambers </span>
+                                    <span>{{chamberFilterCount}}</span>
+                                </button>
+                                <button [disabled]='disableTab' type="button" style="margin-left: 15px" class="btn btn-primary filter-button" (click)="filterByCustomers()"> 
+                                        <!-- <i class="fa fa-caret-down"></i> -->
+                                        <i class="fa fa-filter"></i>
+                                        <span style="margin-right: 10px;margin-left: 10px;">Customers </span>
+                                        <span>{{customerFilterCount}}</span>
+                                </button>
+                            </div>
+
+                            <!-- <label style="float: right;margin-top: 28px; margin-right: 18px;">Filter :</label> -->
+                    
+                            <mat-drawer *ngIf="innerWidth > 600" position="end" #drawer mode='side' opened class="analyticsHomePageWebMatDrawer"> 
+                                <div style="width:340px">
+                                    <div hidden style="border-bottom: solid 1px rgb(148, 150, 148);padding: 18px;width:300px;z-index:1;height: 60px;background: rgb(255, 255, 255);position:fixed;">
+                                        <span style="font-size: 18px;"> Legend </span><a  style="float: right;color: #6c6f72;font-size:30px;margin-top: -7px;" class="drawer-closebtn">&times;</a> 
+                                    </div>
+                                    <div fxLayout fxLayoutAlign="center center" style="margin-bottom: -20px;">
+                                        <mat-form-field  style="width: 100%;">
+                                            <input id="legendSearchInput" #legendSearch matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+                                        </mat-form-field>
+                                    </div>
+                                    <table style="width:100%">
+                                        <tr class ='analyticsHomePageTableRow' *ngFor="let legendListItem of legendList | filter : searchText; let i=index; trackBy: trackByIndex;" (click)="pieChartLabelItemClicked(legendListItem.name)">
+                                            <td style="text-align: center;padding-left: 10px;"><div style="width: 20px; height: 20px;border-radius: 50px; padding-top: 5px; padding-bottom: 5px;" [ngStyle]="{'background': legendListItem.color}"></div></td>
+                                            <td style="width: 150px !important; font-size: 14px;padding-left: 10px;">{{legendListItem.name | uppercase}} {{displayGotCode(legendListItem.gotCode) | uppercase}}</td>
+                                            <td style=" font-size: 14px; text-align: end; padding-right: 10px;">{{legendListItem.count}} ({{getChartPercentage(legendListItem.count)}})</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </mat-drawer>
+                         
+                            <div *ngIf="innerWidth > 600" class="drawer-sidenav-content analyticsHomePageWebMatDrawer" style="margin-bottom: 50px;">
+                                <div style="width: 100%; height: 100%;justify-content: center;">
+                                    <canvas baseChart height="110"
+                                    [ngStyle]="{'margin-left': !showSelectedFilterItems ? '-150px' : '0px' }"
+                                        [data]="pieChartData"
+                                        [labels]="pieChartLabels"
+                                        [chartType]="pieChartType"
+                                        [options]="pieChartOptions"
+                                        [colors]="pieChartColors"
+                                        [legend]="false"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)">
+                                    </canvas>
+
+                                    <div style="width: 340px;float: right;margin-top: -450px; height: 394px; overflow: auto;" hidden>
+                                        <p style="margin-left: 0px;">FILTER RANGE</p>
+                                        <mat-slider style="width: 90%" thumbLabel
+                                        [displayWith]="formatLabel"
+                                        tickInterval="10"
+                                        min="{{minSliderValue}}"
+                                        max="{{maxSliderValue}}" (change)="onSliderValue($event.value)" [(ngModel)]="sliderValue"></mat-slider>
+                                    </div>
+
+                                    <div class="analyticsHomePageFilteredList" style="width: 340px;float: right; height: 394px; overflow: auto;" [hidden]="showSelectedFilterItems">
+                                        <p style="margin-left: 12px;">FILTERS</p>
+                                        <table style="width:100%">
+                                            <tr style="border: 2px solid #f4f4f4; height: 40px; cursor: default;"*ngFor="let selectedFilter of selectedFilterList; let i=index" >
+                                                <td style="width: 150px !important; font-size: 14px;padding-left: 10px;">{{selectedFilter}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="innerWidth <= 600" class="drawer-sidenav-content analyticsHomePageMobileMatDrawer">
+                                <div style="width: 100%; height: 100%;justify-content: center;">
+                                    <canvas baseChart height ="190"
+                                        [data]="pieChartData"
+                                        [labels]="pieChartLabels"
+                                        [chartType]="pieChartType"
+                                        [options]="pieChartOptions"
+                                        [colors]="pieChartColors"
+                                        [legend]="false"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)">
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div *ngIf="innerWidth <= 600"  id="sidenavDrawer" class="analyticsHomePageSidenav analyticsHomePageMobileMatDrawer">
+                                <div class="navigation-drawer-header">
+                                    <div style="width:340px">
+                                        <div hidden style="border-bottom: solid 1px rgb(148, 150, 148);padding: 18px;width:300px;z-index:1;height: 60px;background: rgb(255, 255, 255);position:fixed;">
+                                            <span style="font-size: 18px;"> Legend </span><a  style="float: right;color: #6c6f72;font-size:30px;margin-top: -7px;" class="drawer-closebtn">&times;</a> 
+                                        </div>
+                                        <table style="width:100%">
+                                            <tr class ='analyticsHomePageTableRow' *ngFor="let legendListItem of legendList; let i=index" (click)="pieChartLabelItemClicked(legendListItem.name)">
+                                                <td style="text-align: center;padding-left: 10px;"><div style="width: 20px; height: 20px;border-radius: 50px;" [ngStyle]="{'background': legendListItem.color}"></div></td>
+                                                <td style="width: 150px !important; font-size: 14px;padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">{{legendListItem.name}}</td>
+                                                <td style=" font-size: 14px; text-align: end; padding-right: 10px;">{{legendListItem.count}} ({{getChartPercentage(legendListItem.count)}})</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div style="width:340px;">
+                            </div> -->
+                        </mat-drawer-container>
+                    </div>
+                </mat-tab>
+            </mat-tab-group> 
+        </div>
+    </mat-card>
+</div>

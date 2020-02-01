@@ -1,0 +1,83 @@
+<mat-toolbar>
+  <span>Add Upgrade Rules</span>
+  <span class="fill-remaining-space"></span>
+  <button mat-raised-button style="margin-right:10px;" [disabled]="disabledSaveButton" color="primary" (click) = "onSave()">Save</button>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <mat-card class="card"  style="padding:16px">
+      <div class="mainBlock">
+    
+          <div class="row col-xs-12 ">
+    
+            <div style="width: 100%;padding: 5%;">
+
+                <div style="width: 100%;">
+                  <mat-form-field  style="width: 100%;" >
+          
+                    <mat-label style="font-size: 14px;">Select Platform</mat-label>
+                    <input #platoformNameInput matInput [matAutocomplete]="platformNameAuto" (keyup)="onPlatformtKeyPress($event)" [disabled]="disabledPlatformInput">
+                      <mat-autocomplete #platformNameAuto="matAutocomplete" [displayWith]="getPlatformName.bind(this)" >
+                        <mat-option *ngFor="let platform of dropDownPlatformList" [value]="platform.id">
+                          {{platform.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+
+              <div style="width: 100%;">
+                <mat-form-field  style="width: 100%;" >
+      
+                <mat-label style="font-size: 14px;" >Select Chamber Family</mat-label>
+                    <input #chamberFamilyNameInput matInput [matAutocomplete]="chamberFamilyAuto" (keyup)="onChamberFamilyKeyPress($event)" [disabled]="disabledChamberFamilyInput"> 
+
+                    <mat-autocomplete #chamberFamilyAuto="matAutocomplete" [displayWith]="getChamberFamilyName.bind(this)" >
+                        <mat-option *ngFor="let chamberFamily of dropDownChamberFamilyList" [value]="chamberFamily.id">
+                            {{chamberFamily.name}}
+                          </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+              </div>
+
+         <div style="width: 100%;">
+              <mat-form-field  style="width: 100%;" >
+    
+                  <label style="font-size: 14px;" >Select Chambers</label>
+    
+                <mat-chip-list #chipList>
+                  <mat-chip style="background-color:#ccc874ba"  *ngFor="let chamber of selectedchambersList" [selectable]="chamberselectable"
+                    [removable]="removable" (removed)="chambersRemove(chamber)">
+                    {{chamber.name}} {{displayGotCode(chamber.gotCode)}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+        
+                  <input class="inputField" #chamberInput [formControl]="chamberFormControl" [matAutocomplete]="chamberauto" [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [(ngModel)]="term" (keyup)="onChambersKeyPress($event)" >
+                  <span class="errorLabelClose" [hidden]="!showSelectedchambersClearButton" (click)="clearAllSelectedchambers()">
+                    <mat-icon style="color:#4599c3; cursor: pointer;" class="matIcon">close</mat-icon>
+                  </span>
+                </mat-chip-list>
+        
+                <mat-autocomplete #chamberauto="matAutocomplete" (optionSelected)="chamberOptionSelected($event)">
+                  <mat-option *ngFor="let chamber of dropDownchambersList;let i = index" [value]="chamber">
+                    {{chamber.name}} {{displayGotCode(chamber.gotCode)}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              
+            </div>
+              <span  *ngFor="let chambers of chambersList; let i = index">
+               <mat-chip style="background-color:#abd6e4;margin-right: 5px;font-size: 14px;margin-bottom: 5px;cursor: pointer;"  (click)="chambersOnClick(chambers)">{{ chambers.name }} {{displayGotCode(chambers.gotCode)}}</mat-chip>
+              </span>
+    
+    
+              </div>
+          </div>
+     
+        </div>
+  
+    </mat-card>
+</mat-dialog-content>

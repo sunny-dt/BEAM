@@ -1,0 +1,62 @@
+<mat-toolbar>
+
+    <div style="text-align: center; width: 100%;">
+        <img style="width: 32px; height: 32px; margin-top: 8px;" src="assets/amat_logo.png">
+    </div>
+</mat-toolbar>
+
+<div class="login-container-fluid" style="margin-top: 100px;">
+    <div class="page-header" style="margin-top: 65px;">
+        <div style="margin-top:30px">
+            <div>
+                <div class="col-md-6 logoImage">
+
+                    <img hidden src="assets/Logo_AppliedMaterials.png" width="90px" height="25px" />
+                    <span hidden class="g3ProductIDTool">G3 Product ID Tool</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="left: 0; right: 0; margin: auto;">
+        <mat-card class="card" style="padding:16px">
+            <div class="inner"> 
+                <mat-form-field class="userName example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
+                    <mat-label [ngClass]="{
+                        'userNameLabelOne': !labelError,
+                        'userNameLabelTwo': labelError
+                      }">Username/Email</mat-label>
+                    <input matInput (keyup)="onKeyUp($event)" (focus)="onFocus()" [(ngModel)]="userName" name="email" (keyup.enter)="login()">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field class="password psw example-full-width col-md-5" [ngClass]="{'form-unsubmitted': submitted}">
+                    <mat-label [ngClass]="{
+                        'userNameLabelOne': !labelError,
+                        'userNameLabelTwo': labelError
+                      }">Password</mat-label>
+                    <input matInput type="password" (keyup)="onKeyUp($event)" (focus)="onFocus()" [(ngModel)]="password" name="password" (keyup.enter)="login()">
+                </mat-form-field>
+                <br>
+            </div>
+            <br><br>
+            <br><br>
+
+            <hr>
+            <div class="row matActions">
+                <mat-card-actions class="text-right col-md-12">
+                    <div *ngIf="showLoginErrorMessage" >
+                        <label class="loginerrorsms">{{loginErrorMessage}}</label>
+                    </div>
+
+                    <div >
+                        <button type="button" [disabled]="disableLoginButton" style="margin-right: 5%;"
+                        [ngClass]="{'submitButtonEnableColor' : !disableLoginButton == true, 'submitButtonDisabledColor' : !disableLoginButton == false }"
+                        class="btn custom-button-width col-sm-2" (click)="login()">LOGIN</button>
+                    </div>
+                </mat-card-actions>
+            </div>
+        </mat-card>
+    </div>
+</div>

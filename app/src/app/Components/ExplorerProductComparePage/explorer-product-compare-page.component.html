@@ -1,0 +1,5 @@
+  <div [@slideInOut] *ngIf="visible" class="dialog" style="background-color: #f4f4f4;">
+    <ng-content></ng-content>
+  </div>
+
+  <div *ngIf="visible" class="overlay" (click)="close()"></div>

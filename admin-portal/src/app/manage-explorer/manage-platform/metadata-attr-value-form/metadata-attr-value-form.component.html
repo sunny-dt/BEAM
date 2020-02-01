@@ -1,0 +1,149 @@
+<mat-toolbar>
+  <span>{{service.form.controls['id'].value ? "Update Attr Value" : "New Attr Value"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+
+<mat-dialog-content style="padding-right: 7px;">
+  <mat-card class="card"  style="padding:16px">
+
+  <form [formGroup] = "service.form" class="normal-form">
+    <mat-grid-list cols="1" rowHeight="600">
+      <mat-grid-tile>
+        <div class="controls-container">
+  
+          <input type="hidden" formControlName="id">
+
+          <mat-form-field>
+            <mat-label>Select Name</mat-label>
+
+            <input #attrNameInput formControlName="attr_name_id" matInput 
+            [matAutocomplete]="attrnameauto"
+            (keyup)="onKeyPress($event)">
+
+
+            <mat-autocomplete #attrnameauto="matAutocomplete" [displayWith]="getAttrName.bind(this)">
+              <mat-option *ngFor="let attrObj of dropDownAttrNamesList" [value]="attrObj.id">
+                {{attrObj.name}} [{{attrObj.attr_type_name.length > 0 ? attrObj.attr_type_name.charAt(0).toUpperCase() : ""}}]
+              </mat-option>
+            </mat-autocomplete>
+          
+            <mat-error *ngIf="service.form.controls['attr_name_id'].hasError('required')">Name is required</mat-error>
+          
+          </mat-form-field>
+
+          <!-- <mat-form-field>
+              <input formControlName="value" matInput placeholder="Attribute Value*">
+              <mat-error *ngIf="service.form.controls['value'].hasError('required')">Attribute Value is required</mat-error>
+          </mat-form-field> -->
+
+          <div>
+            <mat-form-field style="width: 80%;" >
+              <mat-label>Value</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="10"
+                        formControlName="value"></textarea>
+                <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error>
+            </mat-form-field>
+            <span [hidden]="hideAddValueOneButton" style="margin-left: 20px;" class="searchbar-createbtn-spacing">
+              <button mat-raised-button (click)="onOneValueClick()" style="position: absolute;"><mat-icon>add</mat-icon>New Value</button>
+            </span>
+            <mat-form-field [hidden]="hidedecone" style="width: 75%; margin-left: 35px;" >
+              <mat-label>Description</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="10"
+                        formControlName="description"></textarea>
+                <!-- <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error> -->
+            </mat-form-field>
+
+           
+        </div>
+
+        <div [hidden]="hideValueTwo">
+          <mat-form-field style="width: 80%;" >
+            <mat-label>Value2</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10"
+                      formControlName="value2"></textarea>
+              <!-- <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error> -->
+          </mat-form-field>
+
+          <span class="searchbar-createbtn-spacing">
+            <button [hidden]="hideclearvalue2"  mat-raised-button (click)="valueDecriment()"><mat-icon>clear</mat-icon></button>
+          </span>
+          
+          <mat-form-field style="width: 75%; margin-left: 35px;" >
+            <mat-label>Description</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10"
+                      formControlName="description2"></textarea>
+              <!-- <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error> -->
+          </mat-form-field>
+        </div>
+
+        <div [hidden]="hideValueThree">
+          <mat-form-field style="width: 80%;" >
+            <mat-label>Value3</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10"
+                      formControlName="value3"></textarea>
+              <!-- <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error> -->
+          </mat-form-field>
+
+
+          <span class="searchbar-createbtn-spacing">
+            <button [hidden]="hideclearvalue3" mat-raised-button (click)="valueDecriment()"><mat-icon>clear</mat-icon></button>
+          </span>
+
+          <mat-form-field style="width: 75%; margin-left: 35px;" >
+            <mat-label>Description</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10"
+                      formControlName="description3"></textarea>
+              <!-- <mat-error *ngIf="service.form.controls['value'].hasError('required')">Value is required</mat-error> -->
+          </mat-form-field>
+        </div>
+          
+        </div>
+      </mat-grid-tile>
+
+     
+
+    </mat-grid-list>
+
+  </form>
+
+  </mat-card>
+  </mat-dialog-content>
+  
+  <div class = "button-container">
+    <div class="button-row">
+        <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid" >Save</button>
+        <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+      </div>
+</div>
+
+

@@ -1,0 +1,48 @@
+
+<div style="height: 650px">
+  <img style="width: 200px; margin-left: 12%;" src="assets/BEAM.png"/> 
+    <div class="row luncher-middle-block" style="margin-right: 0px;margin-left: 0px">
+
+      <div [ngStyle]="setStylesForModule(userRolesService.BuilderAdmin, userRolesService.BuilderUser)" class="row builder-block" (click)="navigateToNSOBuilderDashboard()">
+        <div class="builder-text">
+          <h3 class="builder-title">Builder</h3>
+          <p class="builder-sub-title">Non-System Order (NSO)</p>
+        </div>
+        <div class="builder-img-block">
+          <img class="builder-img" (click)="navigateToNSOBuilderDashboard()" src="assets/combined-shape@3x.png"/>
+        </div>
+      </div>  
+            
+      <div [ngStyle]="setStylesForModule(userRolesService.ExplorerAdmin, userRolesService.ExplorerUser)" class="row explorer-block" (click)="navigateToExplorer()">
+        <div class="explorer-text">
+          <h3 class="explorer-title">Explorer</h3>
+          <p class="explorer-sub-title">Review our complete product library</p>
+        </div>
+        <div class="explorer-img-block">
+          <img  class="explorer-img" src="assets/explorer-image@3x.png"/>
+        </div>
+      </div>  
+    </div>
+  
+    <div class="row" style="margin-right: 0px;margin-left: 0px;justify-content: center;">
+        <div [ngStyle]="setStylesForModule(userRolesService.AnalyticsAdmin, userRolesService.AnalyticsUser)" class="row builder-block" (click)="navigateToAnalyticsDashboard()">
+          <div class="builder-text">
+            <h3 class="builder-title">Analytics</h3>
+            <p class="builder-sub-title">Explore Revenue Opportunities</p>
+          </div>
+          <div class="builder-img-block">
+            <img class="analytics-img" src="assets/analytics-img@3x.png"/>          
+          </div>
+        </div>  
+      
+        <div [ngStyle]="setStylesForModule(userRolesService.MapperAdmin, userRolesService.MapperUser)" class="row builder-block" (click)="navigateToG3MapperDashboard()">
+          <div class="builder-text">
+              <h3 class="builder-title">Mapper</h3>
+              <p class="builder-sub-title">Map to an existing product</p>
+          </div>
+          <div class="builder-img-block">
+              <img class="mapper-img" src="assets/mapper_lunch_logo@3x.png"/>
+          </div>
+        </div>   
+    </div>
+  </div>

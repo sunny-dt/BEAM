@@ -1,0 +1,216 @@
+.selectChambersName {
+
+    color: #4599C3;;
+    font-size: 14px;
+} 
+
+.mat_chip {
+
+    font-size: 12px;
+    border-radius: 17px;
+    min-height: 26px;
+}
+
+.mat-chip.mat-standard-chip {
+
+    background: rgba(132,189,0,0.40);
+    color: rgba(0,0,0,.87);
+}
+
+.inCompatableChamberNames {
+
+    background-color: rgb(226, 226, 226);
+    float: left;
+    padding: 8px;
+    font-size: 12px;
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 6px;
+    border-radius: 17px;
+    color: black;
+    cursor: pointer;
+}
+
+.chamberNames {
+
+    background-color: #abd6e4 ;
+    float: left;
+    padding: 8px;
+    font-size: 12px;
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 6px;
+    border-radius: 17px;
+    color: black;
+    cursor: pointer;
+}
+
+.chamberContainer {
+
+    display: contents;
+}
+
+.matContainer {
+
+    display: table;
+    width: 100%;
+}
+
+.chip-list {
+
+    width: 100%;
+}
+
+.isRnDChambersTopMarginLow{
+
+margin-top: 10px;
+}
+
+.isRnDChambersTopMarginHigh{
+
+margin-top: -23px;
+
+}
+
+.incompatableChambers {
+
+    margin-top: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.matchingChambersLabel {
+
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.matActions {
+
+    widows: 100%;
+}
+
+hr {
+    
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(161, 161, 161);
+}
+
+.card>hr {
+
+    margin-right: -16px;
+    margin-left: -16px;
+}
+
+.matContainerproductsList {
+
+    background-color: rgb(183, 119, 201);
+}
+
+.errorLabel {
+
+    position: absolute;
+    display: table-caption;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-top: -18px;
+    font-size: 12px;
+    color: #1096D1;
+}
+
+.matIcon {
+
+    color: #D22630;
+}
+
+.comapatableChambersList {
+
+    margin-top: 15px;
+}
+
+.mat-input-element {
+
+    caret-color: #000000;
+}
+
+.text-right {
+    
+    display: block;
+    margin-bottom: 0px;
+}
+
+.errorLabelClose {
+
+    float: right;
+}
+
+.red {
+
+    color: #D22630;
+}
+
+.blue {
+
+    color: #4599C3;
+}
+
+.submitButtonEnableColor {
+
+    color: #2e849e;
+    background-color:#d3e5ec;
+}
+
+.submitButtonDisabledColor {
+
+    background-color: #dadada;
+    color: #000000;
+}
+
+.mat-form-field-custom {
+
+    margin-top: -12px;
+}
+
+.formFiledUnderLineColor .mat-form-field-underline {
+
+   background-color: red !important; 
+}
+
+.mat-card-actions {
+    
+    margin-bottom: 8px !important;
+    margin-top: 0px !important;
+}
+
+.mat-form-field-underline {
+    
+    background-color:#4599C3 !important;
+}
+
+.chamberQtyCircle {
+
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    line-height: 20px;
+    text-align: center;
+    background: rgb(255, 255, 255);
+    margin-left: 10px;
+    margin-right: -5px;
+    margin-bottom: 3px;
+}
+
+.RnDChamberSelect {
+
+    cursor: pointer;
+}
+
+.RnDChamberDisabled {
+
+    pointer-events: none;
+    cursor: not-allowed;  
+}

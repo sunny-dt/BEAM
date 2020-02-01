@@ -1,0 +1,82 @@
+<mat-toolbar>
+    <span>{{service.form.controls['id'].value ? "Update Media" : "New Media"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="saveAndAddNewTapped ? onClose('created') : onClose(null)" tabIndex="-1">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <mat-dialog-content>
+      <mat-card class="card"  style="padding:16px">
+          <form [formGroup] = "service.form" class="normal-form" (ngSubmit)="onSubmit()">
+              <mat-grid-list cols="2" rowHeight="360">
+                <mat-grid-tile>
+                  <div class="controls-container">
+            
+                    <input type="hidden" formControlName="id">
+                    <input type="hidden" formControlName="serial_order">
+                    <input type="hidden" formControlName="media_file_url">
+                    <input type="hidden" formControlName="media_filename">
+                   
+                    <mat-form-field >
+                        <mat-label>Media Type</mat-label>
+                        <mat-select [disabled]="uploadingFile"  (selectionChange)="onLinkableMediaTypesSelectionChange($event.value)" formControlName="media_type">
+                          <mat-option  *ngFor="let type of linkableMediaTypes;let selectedPosition=index" [value]="type.name">{{type.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  
+                  </div>
+                </mat-grid-tile>
+          
+                <mat-grid-tile>
+                  <div class="controls-container">
+                      
+                    <input #fileInput
+                      style="display: none"
+                      type="file" (click)="fileInput.value = null" (change)="onFileChanged($event)"
+                      >
+          
+                     
+                        <img *ngIf="showMetadataMediaImage && !uploadingFile && selectedLinkableMediaType === 'image'" [src]="imageURL" style="width: 100%;background-color: dimgrey" alt="image">
+          
+                        <ngx-doc-viewer *ngIf="showMetadataMediaImage && !uploadingFile && (selectedLinkableMediaType === 'ppt' || selectedLinkableMediaType === 'doc' || selectedLinkableMediaType === 'excel')"  [url]="imageURL" viewer="office" style="width: 100%; display: block"></ngx-doc-viewer>
+                        
+                        <ngx-doc-viewer *ngIf="showMetadataMediaImage && !uploadingFile && selectedLinkableMediaType === 'pdf' "  [url]="imageURL" viewer="google" style="width: 100%; display: block"></ngx-doc-viewer>
+
+                        <mat-video *ngIf="showMetadataMediaImage && !uploadingFile && selectedLinkableMediaType === 'video'" style="width: 100%; height: 350px;"  [autoplay]="false" [preload]="true" [fullscreen]="false" [download]="true" [showFrameByFrame]="false" color="accent" spinner="spin" overlay="null" keyboard="false" loop="false" muted="false">
+                          <source matVideoSource [src]="imageURL" type="video/mp4">
+                        </mat-video>
+          
+                      <div>
+                        <button *ngIf="!uploadingFile && selectedLinkableMediaType" style="margin-top:10px;margin-bottom:10px" (click)="fileInput.click()" mat-raised-button color="primary" type="button">{{service.form.controls['media_filename'].value ? "Edit Media" : "Add Media"}}</button>
+                        <br>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'image'">Allowed Formats :  PNG (<= 20 MB), JPG (<= 30 MB)</mat-label>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'video'">Allowed Formats :  MP4 (<= 70 MB)</mat-label>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'doc'">Allowed Formats :  DOC, DOCX (<= 10 MB)</mat-label>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'ppt'">Allowed Formats :  PPT, PPTX (<= 10 MB)</mat-label>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'excel'">Allowed Formats :  XLS, XLSX  (<= 5 MB)</mat-label>
+                        <mat-label *ngIf="selectedLinkableMediaType == 'pdf'">Allowed Formats :  PDF  (<= 20 MB)</mat-label>
+                      </div>
+                      
+                      <mat-progress-spinner [hidden] = "!uploadingFile" [value] = "uploadedPercntValue" style="margin:0 auto" ></mat-progress-spinner>
+                  </div>
+                </mat-grid-tile>
+          
+              </mat-grid-list>
+          
+            </form>
+      </mat-card>
+  </mat-dialog-content>
+ 
+  
+    <div class = "button-container">
+      <div class="button-row">
+          <button mat-raised-button color="basic" type="button" (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="warn" type="button" [disabled]="service.form.pristine || uploadingFile" (click)="onClear()" *ngIf="!service.form.controls['id'].value">Clear</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="service.form.invalid || uploadingFile">Save</button>
+          <button mat-raised-button color="primary" type="button" (click)="onSubmitnAddNew()" [disabled]="service.form.invalid || uploadingFile" *ngIf="!service.form.controls['id'].value">Save and Add Another</button>
+        </div>
+  </div>
+  
+  
+  

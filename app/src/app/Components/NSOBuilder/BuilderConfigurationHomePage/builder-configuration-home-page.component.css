@@ -1,0 +1,266 @@
+.configuration-home-inner {
+
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.systemIdBUtton {
+
+    background: #4599c5;
+}
+
+.configuration-button {
+
+    background: #4599c5; 
+    color: white;
+}
+
+.configuration-button:hover {
+  
+    background-color: #0d6b9c;
+  }
+
+.systemIdBUtton:hover {
+  
+    background-color: #0d6b9c;
+  }
+
+.configuration-home-mat-actions {
+
+    widows: 100%;
+    margin-bottom: 12px;
+}
+
+.card>hr {
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgb(161, 161, 161);
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.configuration-home-card>hr {
+
+    margin-right: -16px;
+    margin-left: -16px;
+}
+
+.text-right {
+
+    display: block;
+}
+
+.configuration-home-new-configuration {
+
+    background: #EAEAEA; 
+    border-radius: 3px;
+}
+
+.configuration-home-titles-div {
+
+    width: 100%;
+    margin-top: 35px;
+    display: inline-block;
+}
+
+.configuration-home-title-one-div {
+
+    width: 25%;
+    float: left;
+}
+
+.configuration-home-select-config-title {
+
+    font-size: 14px;
+    width: 100%;
+}
+
+.configuration-home-title-two-div {
+
+    width: 75%;
+    float: left;
+}
+
+.configuration-home-title-created-div {
+
+    width: 47%;
+    float: left;
+}
+
+.configuration-home-title-menu-div {
+
+    width: 6%;
+    float: right;
+}
+
+.configuration-home-config-empty-list-div {
+
+    width: 100%;
+    margin-top: 5px;
+    display: inline-block;
+    padding: 8px;
+}
+
+:host ::ng-deep .mat-tab-label {
+
+    min-width: fit-content !important;
+    width: 25px !important;
+}
+
+/* .mat-tab-label {
+
+    width: 100px !important;
+} */
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn.focus:active,
+.btn:active:focus,
+.btn:focus {
+    
+  outline: 0 !important;
+  outline-offset: 0  !important;
+  background-image: none  !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none  !important;
+}
+
+.config-Home-header {
+
+    width: 100%;
+    height:60px;
+    background: rgb(103, 97, 92);
+    padding-top: 18px;
+    display: flex;
+  }
+
+.config-Home-header-back-arrow-block {
+
+    /* width: 8%; */
+    float: left;
+    padding-left: 3%;
+  }
+
+/* :host ::ng-deep .mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+
+    display: none !important;
+} */
+
+/* :host ::ng-deep .mat-tab-label {
+
+    height: 55px !important;
+    padding: 0 0 !important;
+    min-width: 48px !important;
+    width: 70px !important;
+    color: white !important;
+} */
+
+/* :host ::ng-deep .mat-tab-header, .mat-tab-nav-bar {
+
+    border-bottom: transparent !important;
+} */
+.dropdown-item.active, .dropdown-item:active {
+   
+    background-color: rgba(176, 214, 228, 0.9);
+}
+
+.scrolling table {
+
+    table-layout: inherit;
+    *margin-left: -100px;
+}
+.scrolling td, th {
+
+    vertical-align: top;
+	padding: 10px;
+    max-width: 100px;
+    padding-top: 2%;
+}
+ 
+.outer {
+
+	position: relative
+}
+.inner {
+
+	overflow-x: auto;
+	overflow-y: visible;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+
+    background-color: transparent;
+}
+
+.table-hover tbody tr:hover {
+
+    background-color: rgba(0,0,0,.075);
+}
+
+ 
+
+.table td, .table th {
+        border-top: 0px;
+}
+
+ ::ng-deep .ui-widget-overlay.ui-dialog-mask {
+
+    opacity: 0 !important;
+    z-index: unset !important;
+}
+
+/* ::ng-deep .ui-table .ui-table-thead > tr > th {
+    padding: 0.571em 0.857em;
+    border: 1px solid transparent !important; 
+    font-weight: 700;
+    color: #333333;
+    background-color: transparent !important;
+}
+
+::ng-deep .ui-table .ui-table-tbody > tr > td {
+    background: inherit;
+    border: 1px solid transparent !important;
+}
+
+::ng-deep .ui-table .ui-table-tbody > tr:nth-child(even) {
+    background-color: transparent !important;
+}
+
+
+::ng-deep .ui-table .ui-table-tbody > tr {
+    border: 2px solid #f4f4f4 !important;
+} */
+
+@media screen and (max-width: 850px) {
+
+        td,th{
+
+            min-width: 210px;
+        }
+}
+
+
+table {
+
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+ 
+th.mat-header-cell {
+
+    text-align: left;
+    max-width: 300px;
+}
+tr.mat-header-row {
+    height: 38px !important;
+}
+
+:host ::ng-deep button.mat-sort-header-button:focus {
+    
+    outline: 0 !important;
+}

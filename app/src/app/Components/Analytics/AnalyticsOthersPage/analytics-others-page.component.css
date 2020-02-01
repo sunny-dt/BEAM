@@ -1,0 +1,51 @@
+.analyticsCustomerPageWebMatDrawer {
+
+    display: block;
+  }
+  
+  .analyticsCustomerPageMobileMatDrawer {
+  
+    display: none;
+  }
+
+  .analyticsCustomerPageTableRow {
+
+    cursor: pointer;
+    border: 2px solid #f4f4f4; 
+    height: 40px;
+   }
+   
+   .analyticsCustomerPageTableRow:hover {
+   
+     cursor: pointer;
+     background-color:rgba(0,0,0,.04);
+   }
+  
+  @media screen and (max-width: 600px) {
+  
+    .analyticsCustomerPageWebMatDrawer {
+  
+      display: none;
+    }
+  
+    .analyticsCustomerPageMobileMatDrawer {
+  
+      display: block;
+    }
+  
+    .analyticsCustomerPageMobileTitle {
+      
+      font-size: medium;
+    }
+  
+    .analyticsCustomerPageSidenav {
+  
+      height: 100%;
+      width: 0;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      background-color: white;
+      box-shadow:4px -1px 20px 0px rgba(0, 0, 0, 0.2);
+    }
+  }

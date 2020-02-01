@@ -1,0 +1,278 @@
+<div class="">
+  <div class="details-page-body">
+    <div class="header-content" id="top">
+
+      <swiper class="swiper" [config]="config">
+        <div class="swiper-wrapper" >
+          <div style="height: 200px;" *ngFor="let featuredList of featuredMenuNodeList|slice: 0:1 let i=index" [ngStyle]="{'background-color': featuredListBgColor}" class="swiper-slide header_content_banner">
+            <div class="feature_image_block" style="margin-right: 25%;" >
+            <img [src]="featuredListImageLink" style="max-width: 100%;min-width: 100%"  alt="image">
+            <!-- <img src="assests/Productivity.png" style="max-height: 644px; width: 500px;margin-top: 145px;"   alt="image"> -->
+          </div>
+  
+          <div class="details-header-content-titles" [ngStyle]="{'color': featuredListfgColor}">
+            <div style="display: flex;cursor: pointer;" [matMenuTriggerFor]="menu" > <p class="menuButton" style="cursor: pointer;  font-size: 28px;" >{{selectedPlatformName | uppercase}}</p> 
+                <span class="material-icons" style="font-size:36px;margin-top: 4px;margin-left: 5px;cursor: pointer;">arrow_drop_down</span>
+            </div>
+            <div class="newS">
+              <mat-menu class="custom-mat-menu-panel" #menu="matMenu" [overlapTrigger]="false">
+                <mat-nav-list *ngFor="let platform of featuredMenuNodeList; let selectedPlatformPosition=index" (click)="onPlatFormListChange(selectedPlatformPosition)">
+                  <mat-list-item [ngClass]="{'selectedPlatformActive': selectedPlatformPositionName == platform.name}">
+                      {{platform.name | uppercase}}
+                  </mat-list-item>
+                </mat-nav-list>
+              </mat-menu>
+            </div>
+          </div>
+            <!-- <div class="header-content-titles">
+              <mat-select class="mat-select-class" [(value)]="selectedPlatformPosition" (selectionChange)="onPlatFormListChange(selectedPlatformPosition)">
+                <mat-option *ngFor="let platform of featuredMenuNodeList; let selectedPlatformPosition=index" [value]="selectedPlatformPosition">{{platform.name | uppercase}}</mat-option>
+              </mat-select>
+            </div> -->
+          </div>
+        </div>
+        <div class="swiper-pagination" hidden></div>
+      </swiper>
+    </div>
+    
+    <div class="body-content">
+      <div class="row col-md-12" style="margin-left: 0px">
+        <div class="col-md-5" style="padding-right: 10%; padding-left: 9%;margin-top: 3%">
+           
+          <mat-tree style="background: rgba(0, 0, 0, 0);margin-left: -15px;" [dataSource]="dataSource" [treeControl]="treeControl">
+            <mat-tree-node class="details-mat-tree-node-class" *matTreeNodeDef="let node" matTreeNodePadding 
+            (click)="onExplorerMenuNodeSelected(node, true)" [ngClass]="{ 'menunode-active-background': compareCurrentNode(activeNode, node) }">
+            <span  [ngClass]="{ 'menunode-active-title': compareCurrentNode(activeNode, node) }" > {{node.name}} </span>
+              <span  disabled></span>
+            </mat-tree-node>
+          
+            <mat-tree-node  style="display: list-item" class="details-mat-tree-node-class" *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding  matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name"
+            (click)="onExplorerMenuNodeSelected(node)"  [ngClass]="{ 'menunode-active-background': compareCurrentNode(activeNode, node) }">
+            <span style="margin-left: 15px" [ngClass]="{ 'menunode-active-title': compareCurrentNode(activeNode, node) }"> {{node.name}} </span>
+              <span class="mat-tree-arrow-class">
+                <mat-icon class="mat-icon-rtl-mirror" style="margin-right: 15px">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </span>
+            </mat-tree-node>
+          </mat-tree>
+        </div>
+
+        <div class="col-md-7">
+          <div style="display: inline-flex; width: 100%; position: relative;">
+            <div class="breadcrum_path_div">
+              <ul style="padding-left: 0px; display: inline-flex;" *ngFor="let horizontalList of hierachyHorizontalList; let i=index">
+                <li class="horizontal">
+                  <span (click)="selectedBreadcrumbPath(horizontalList)" style="display: inline-flex;"><a style="cursor: pointer; color: rgba(0, 0, 0, 0.8)" [ngStyle]="{'color': getColorByIndex(i), 'cursor': getCursorByIndex(i), 'font-weight': getFontWeightByIndex(i)}">{{horizontalList.name}}</a> <h6 [hidden]="i==hierachyHorizontalList.length-1" style="margin-left: 10px; margin-top: 2px; color: rgba(0, 0, 0, 0.4)"> / </h6></span>
+                </li>
+              </ul>
+            </div>
+            <div [hidden]="showCompareButton" class="compare_button_div">
+              <h6 class="compare_button" [ngStyle]="{'background': compareButtonColor,'cursor': getCompareButtonCursor()}" (click)="compareButtonClicked()">Compare</h6>
+            </div>
+          </div>
+            
+          <section style="margin-top:18px">
+            <swiper class="" [config]="videoConfig" [style.height.px]="heightOfSwiperInPixel" #videoSwiper>
+              <div class="swiper-wrapper">
+                <div style="width: 700px; height: auto; background: rgb(255, 255, 255)" *ngFor="let metaDataMedia of metaDataMediaList.items; let i=index" class="swiper-slide header_content_banner">
+                  <div class="mediaImage-block">
+
+                    <div [hidden]="!isMediaTypeImage(metaDataMedia.media_type)" class="media-image-div">
+                      <img [src]="metaDataMedia.media_file_url" style="height: 100%;">
+                    </div>
+
+                    <ngx-doc-viewer [hidden]="!isMediaTypePPTorDOC(metaDataMedia.media_type)" [url]="metaDataMedia.media_file_url" viewer="office" style="width: 100%; display: block"></ngx-doc-viewer>
+                    <ngx-doc-viewer [hidden]="!isMediaTypePDF(metaDataMedia.media_type)" [url]="metaDataMedia.media_file_url" viewer="google" style="width: 100%; display: block"></ngx-doc-viewer>
+                    
+                    <mat-video style="width: 100%; height: 350px;" [hidden]="!isMediaTypeVideo(metaDataMedia.media_type)" [autoplay]="false" [preload]="true" [fullscreen]="false" [download]="true" [showFrameByFrame]="false" color="accent" spinner="spin" overlay="null" keyboard="false" loop="false" muted="false">
+                      <source matVideoSource [src]="metaDataMedia.media_file_url" type="video/mp4">
+                    </mat-video>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <!-- <div class="swiper-pagination" style="color:black; position: unset; display: initial; background: #1f1d21;"></div> -->
+            </swiper>
+          </section>
+            
+         <p style="font-size: 20px;font-weight: normal;color: rgba(0, 0, 0, 0.9);margin-top: 7%;">{{metaDataContentText}}</p>
+         <!-- <p style="font-size: 16px;font-weight: normal;color: rgba(0, 0, 0, 0.9);margin-top: 7%;">{{metaDataContentSubText}}</p> -->
+         <!-- <textarea readonly style="width: 100%;background: transparent;outline: none;border: none;overflow:hidden;font-size: 16px;font-weight: normal;color: rgba(0, 0, 0, 0.9);margin-top: 7%;" cdkTextareaAutosize>{{metaDataContentSubText}}</textarea> -->
+        
+        <div [hidden]="tableBlock" >  
+          <p class="attributesTitle" >{{tableHeading}}</p>
+        
+          <div  *ngFor=" let attributeValue of attributesList">
+            <div class="col" style="display: flex;padding-top: 0px; padding-bottom: 0px;">
+              <div class="col" style="font-size: 16px;margin: auto;" >{{attributeValue.name}}</div>
+              <div class="col"><textarea readonly style="cursor: default; width: 100%;background: transparent;outline: none;border: none;overflow:hidden;font-size: 16px;font-weight: normal;color: rgba(0, 0, 0, 0.9);" cdkTextareaAutosize>{{attributeValue.value}}</textarea></div>
+            </div><hr style="margin-top: 0px;margin-bottom: 0px;">
+          </div>
+        </div>
+
+        <div [hidden]="characteristicsTableBlock" >  
+          <p class="attributesTitle" >{{characteristicsTableTitle}}</p>
+        
+          <!-- <p style="margin-top: 4%; font-size: 16px; font-weight: 500; color: rgba(0, 0, 0, 0.9);">{{characteristicsDefaultTableTitle}}</p> -->
+          <div *ngFor=" let characteristicsData of finalCharacteristicsList">
+            <div class="col" style="display: flex;padding-top: 0px;padding-bottom: 0px;">
+              <div class="col" style="font-size: 16px;margin: auto;" >{{characteristicsData.name}}</div>
+              <!-- <p style="font-size: 16px; font-weight: 500; color: rgba(0, 0, 0, 0.9);">{{characteristicsDefaultTableTitle}}:</p> -->
+              <div class="col" >
+                  <p style="font-size: 16px; font-weight: 500; color: rgba(0, 0, 0, 0.9);">{{hideCharacteristicsDefaultlBlock(characteristicsData)}}</p>
+                  <mat-accordion>
+                      <mat-expansion-panel class="mat-elevation-z0" *ngFor="let defaultCharacteristicsData of characteristicsData.default" style="padding: 0px;background-color: #f4f4f4;margin-top: -15px;" [disabled]="checkCharacteristicsValue(defaultCharacteristicsData.dec)">
+                          <mat-expansion-panel-header style="margin-left: -14px;">
+                              <mat-panel-title>{{defaultCharacteristicsData.value}} </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                           <div>
+                             <textarea readonly style="cursor: default;width: 100%;background: transparent;outline: none;border: none;overflow:hidden;font-weight: normal;color: rgba(0, 0, 0, 0.9);" cdkTextareaAutosize>{{defaultCharacteristicsData.dec}}</textarea>
+                           </div>
+                     
+                      </mat-expansion-panel>
+                  </mat-accordion>
+                <!-- <textarea readonly style="margin-top: 4%;cursor: default;width: 100%;background: transparent;outline: none;border: none;overflow:hidden;font-size: 16px;font-weight: normal;color: rgba(0, 0, 0, 0.9);" cdkTextareaAutosize>{{characteristicsData.value}}</textarea> -->
+                <div [hidden]="hideCharacteristicsOptionalBlock(characteristicsData.optional)">
+                <p style=" font-size: 16px; font-weight: 500; color: rgba(0, 0, 0, 0.9);">Optional:</p>
+                <mat-accordion>
+                    <mat-expansion-panel class="mat-elevation-z0" *ngFor="let optionalCharacteristicsData of characteristicsData.optional" style="padding: 0px;background-color: #f4f4f4;margin-top: -15px;" [disabled]="checkCharacteristicsValue(optionalCharacteristicsData.dec)" >
+                        <mat-expansion-panel-header style="margin-left: -14px;">
+                            <mat-panel-title>{{optionalCharacteristicsData.name}} </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                         <div>
+                           <!-- <span >Description :</span><br/> -->
+                           <!-- <p>{{characteristicsDatas.dec}}</p> -->
+                           <textarea readonly style="cursor: default;width: 100%;background: transparent;outline: none;border: none;overflow:hidden;font-weight: normal;color: rgba(0, 0, 0, 0.9);" cdkTextareaAutosize>{{optionalCharacteristicsData.dec}}</textarea>
+                         </div>
+                   
+                    </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+              </div>
+            </div><hr style="margin-top: 0px;margin-bottom: 0px;">
+          </div>
+
+        <p [ngClass]="{'inthisSession': isSessionMargin === true,'inthisSessionblock': isSessionMargin === false }" >{{inThisSectionTitle}}</p>
+    
+        <mat-list>
+          <mat-list-item (click)="childSectionItemsClick(children)" style="height: 100px;  border-radius:0px; border: 1px rgba(0, 0, 0, 0.2) solid; overflow: hidden; margin-top: 10px; cursor: pointer;" *ngFor="let children of childrenListByNodeID.items">
+            <div style="display: inline-flex; width: 100%;">
+              <div style="background:rgba(0, 0, 0, 0.25); margin-left: -20px; padding: 10px;" width="100px" height="100px">
+                <img [src]='getChildImageLinkByItem(children)' width="100px" height="100px" alt="image">
+              </div>
+              <div style="margin-left: 5%; width: 100%; margin-right: 5%; position: relative; padding-top: 43px;">
+                  <span style="font-size: 20px; color: rgba(0, 0, 0, 0.8);">{{children.name}}</span>
+                  <i style="position: absolute; right: 0px; color: rgba(0, 0, 0, 0.8);" class="material-icons">keyboard_arrow_right</i>
+              </div>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    
+    <div class="row recommended-title-block" [hidden]="hideRecommendedTitleBlock">
+      <h6 class="recommendedTitle" >Recommended</h6>
+      <h6 class="recommended_seel_all_title" hidden>See All</h6>
+    </div>
+      
+    <div class="recommended-section" style="margin-top: 3%;    padding-bottom: 100px">
+      <div class="row" style="margin-left: 16px;margin-right: 16px;" >
+        <div class="col-md-4 recommended-section-block" [ngClass]="{'recommendedhlighField': recommendedSelectedIndex === i, 'recommendedhlighFieldLeave': recommendedSelectedIndex === -1 }" *ngFor="let recommended of recommendedList.items | slice:0:3; let i=index" 
+        (mouseover)="recommendedtItemsMouseover(i,recommended)" 
+        (mouseleave)="recommendedItemsMouseLeave(i)" 
+        (click)="recommendedSectionItemsClick(recommended)">
+          <img [src]="recommended.tile_image_link" style="background:#dee2e6" width="60px" height="70px" alt="image">
+          <!-- <img src="assets/yield_circle_image@3x.png"  width="50px" height="50px" alt="image"> -->
+          <div style="display: table;">
+            <h6 style="margin-top: 30px;">{{recommended.name}}</h6>
+            <hr *ngIf="recommendedSelectedIndex === i" style="height: 1px"  [ngStyle]="{'background-color': '#f4f4f4'}" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div [hidden]="hideFooterContent" class="footer-drawer"> 
+  
+    <div class="footer-drawer-inner-block">
+      <div class="compare-title-block">
+        <span class="footer-compare-title">Compare</span>  <span class="footer-compare-title">{{selectedCompareTypeName}}S</span>
+      </div>
+  
+      <div style="float: left;" *ngFor="let compareItem of selectedCompareItemsList; let i=index">
+        <span class="footer-titles">{{i+1}} : {{compareItem.name}} <img src="assets/close_icon.png" style="width: 30px;height: 30px;cursor: pointer;" (click)="removeCompareItem(i)"> </span>   
+      </div>
+
+      <div class="footerUpArrowBlock">
+        <span style="float: right;margin-right: 40px">
+          <img src="assets/up-arrow.png" style="width: 40px;cursor: pointer;"  (click)="upArrowClicked();">
+        </span>
+      </div>
+    </div>
+  </div>
+</div>  
+
+<app-explorer-product-compare-page style="width:100%" [(visible)]="showProductCompareResultsPage">
+
+  <div class="compare-header-div">
+    <div class="compare-header-title-div">
+      <span class="compare-header-title">Compare {{selectedCompareTypeName}}</span>
+    </div>
+    <button type="button" class="excelDownloadButton" (click)="exportAsXLSX()"><i class="fa fa-download"></i> Download Excel </button>
+    <img class="compare-header-close-button" src="assets/close@3x.png" (click)="headerCloseButtonClick();">
+  </div>
+
+  <div #StickyHeader *ngIf="isPlatformCompareStickyVisible" class="product-compare-stricky-header">
+    <table style="border-collapse: separate; border-spacing: 50px">
+      <tr *ngFor="let compareResult of compareResultList.media_rows_data">
+        <td style="left: 1px;position: sticky;  min-width: 250px !important;">
+        <div style="background: white; height: 125px; width: 250px; top: -17px; position: absolute; left: 0;"></div></td>
+        <td *ngFor="let media of compareResult.values; let i = index"  style="width: 350px">
+          <p style="margin-top: -20px; font-size: 23px;">{{media.media_title}}</p>
+          <h5 class="product-compare-strickyheader-explore-button" (click)="onStickyHeaderExploreClick(i)">Explore</h5>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background-color: #f4f4f4;margin-top: 100px; ">
+    <table class="compare-items-table" style="background-color: #f4f4f4;">
+
+      <tr *ngFor="let compareResult of compareResultList.media_rows_data">
+        <td style="left: 8px;position: sticky;margin-left: 15px; min-width: 250px !important;background: #f4f4f4;z-index: 1;"> </td>
+        <td *ngFor="let media of compareResult.values; let i = index" class="media-compare-table-column" style="height: 400px;">
+          <div>
+            <p style="height: 50px;" class="compare-item-title">{{media.media_title}}<img style="width: 40px; height: 40px; cursor: pointer; float: right;" (click)="compareItemCloseButtonClick(i)" src="assets/compare_gray_close@3x.png"></p>
+            <span [matMenuTriggerFor]="compareChangeMenu" (menuOpened)="compareChangeMenuOpened()" (menuClosed)="compareChangeMenuClosed()" class="compare-change-item-title" (click)="compareItemChangeButtonClick(i)">Change <span class="material-icons" style="margin-left: 5px;">arrow_drop_down</span></span>            
+            <mat-menu class="custom-mat-menu-panel" #compareChangeMenu="matMenu" [overlapTrigger]="false">
+              <mat-nav-list *ngFor="let comparableNode of otherComparableNodes; let comparableNodePosition=index" (click)="onOtherComparableNodesClick(comparableNode)">
+                  <mat-list-item>
+                      {{comparableNode.name}}
+                  </mat-list-item>
+              </mat-nav-list>
+            </mat-menu>
+
+            <div class="product-compare-media-image-block" style="background: #d8d8d8">
+              <img [src]="media.media_file_url" style="height: 100%; width: 100%;" alt="image">
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr *ngFor="let compareResult of compareResultList.other_comparo_rows_data">
+        <td style="left: 8px;position: sticky;margin-left: 15px; min-width: 250px !important;font-weight: bold;background: #f4f4f4; padding-left: 10px;vertical-align: top;">{{compareResult.name}}</td>
+        <td *ngFor="let compareItem of compareResult.values" class="compare-table-column">
+          <div class="compare-Table-Column-block" style="width: 350px;">
+            <!-- <h1 class="compare-items-table-titles">{{compareItem.name  | titlecase}} </h1> -->
+            <textarea readonly class="compare-items-table-titles-value" cdkTextareaAutosize>{{compareItem.value}}</textarea>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</app-explorer-product-compare-page>

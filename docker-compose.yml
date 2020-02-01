@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+    beam-node-api:
+        hostname: localhost
+        container_name: beam-api
+        build: 
+            context: api
+            dockerfile: Dockerfile 
+        image: beam-node-api-image
+        ports: 
+            - "3000:3000"
+        env_file:
+            - ./api/api-env.list
+
+    beam-angular-admin-portal:
+        hostname: localhost
+        container_name: beam-angular-admin-portal
+        build: 
+            context: admin-portal
+            dockerfile: Dockerfile
+        image: beam-angular-admin-portal-image
+        depends_on: 
+           - beam-node-api
+        ports:
+           - "4201:80" 
+    beam-angular-app:
+        hostname: localhost
+        container_name: beam-angular-app
+        build: 
+            context: app
+            dockerfile: Dockerfile
+        image: beam-angular-app-image
+        depends_on: 
+           - beam-node-api
+        ports:
+           - "4200:80"

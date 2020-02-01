@@ -1,0 +1,94 @@
+<div style="background-color: #f4f4f4">
+<section class="header-content">
+    <swiper class="swiper" [config]="config">
+        <div class="swiper-wrapper">
+          
+          <div *ngFor="let featuredList of featuredList.items; let i=index" [ngStyle]="{'background-color': featuredList.tile_bg_color}" class="swiper-slide header_content_banner" style="cursor: default" (click)="onNavigate(featuredList.url)">
+                <!-- <img class="header_content_image" [src]="featuredList.image_link"  alt="image"> -->
+            <div class="home-featured-image-block" style="margin-left: 48%; width: 36%;">
+                <img [src]="featuredList.image_link" style="max-height: 100%;">
+            </div>
+                <!-- <img  class="header_content_image" src="assets/endura.png"  alt="image"> -->
+                <div class="header-content-titles">
+                    <!-- <span class="featured">{{featuredList.type_title}}</span><br> -->
+                    <p class="cobalt-product-suite" [ngStyle]="{'color': featuredList.tile_fg_color}">{{featuredList.title}}</p>
+                    <p class="introducing-the-most" [ngStyle]="{'color': featuredList.tile_fg_color}">{{featuredList.sub_title}}</p>
+                    <p [ngStyle]="{'color': featuredList.tile_fg_color, 'border': '1px solid' + featuredList.tile_fg_color }" style="cursor: pointer; width: 95px; border-radius:10px; overflow: hidden; padding-left: 8px">{{exploreButtonText}}</p>
+                </div>
+          </div>
+        </div>
+        <div class="swiper-pagination" ></div>
+          <!-- <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div> -->
+      </swiper>
+  </section>
+  
+<div class="middle-body-content" [hidden]="hideBelowSection">
+
+  <div [hidden]="hidePlatformInfo">
+    <div class="row title-block">
+      <h6 class="platform_title">{{platformTitle}}</h6>
+      <h6 class="platform_seel_all_title"  style="cursor: default"><a  style="cursor: pointer" (click)="compareButtonClick()">{{compareTitle}}</a></h6>
+    </div>
+      
+    <div class="platforms_main" style="margin-top: 38px;">
+      <div class="row" style="margin-left: 16px;margin-right: 16px;" >
+        <div [ngClass]="{'platformhighlighField': platformSelectedIndex === i,'platformhighlighFieldleave': platformSelectedIndex === -1}" [ngStyle]="{'background-color': platform.tile_bg_color, 'font-size': '80px'}" class="col-md-6 platformBlock" *ngFor="let platform of platformList.children; let i=index" (mouseover)="platformItemsMouseOver(i,platform)" (mouseleave)="platformItemsMouseLeave(i)" (click)="navigateToDetailsPage(platform.name)" >
+          <div style="display: table;">
+            <h6  style="margin-top: 40px; font-size: 24px;margin-left: 15px" [ngStyle]="{'color': platform.tile_fg_color}">{{platform.name | uppercase}}</h6>                   
+            <hr *ngIf="platformSelectedIndex === i" style="height: 1px;margin-left: 15px"  [ngStyle]="{'background-color': platform.tile_fg_color}" >
+          </div>
+          <div  class="tile_image_block">
+            <img  [src]="platform.tile_image_link" />
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div [hidden]="hideSoftwareInfo">
+    <div class="row title-block">
+      <h6 class="platform_title">{{softwareTitle}}</h6>
+      <h6 class="platform_seel_all_title" [hidden]="hideLatestSeeAll">{{seeAllTitle}}</h6>
+    </div>
+    
+    <div class="platforms_main" style="margin-top: 38px;">
+      <div class="row" style="margin-left: 16px;margin-right: 16px;" >
+        <div [ngClass]="{'softwarehighlighField': softwareSelectedIndex === i,'softwarehighlighFieldleave': softwareSelectedIndex === -1}" class="col-md-4 softwareBlock" *ngFor="let software of softwareList.children | slice:0:3; let i=index"  (mouseover)="softwareItemsMouseover(i,software)" (mouseleave)="softwareItemsMouseLeave(i)" (click)="navigateToDetailsPage(software.name)" >
+          <div  class="tile_images_block" >
+            <img [src]="software.tile_image_link"  style="max-height: 100%;width: 100%;"> 
+          </div>
+            <!-- <img src="assets/rectangle_image@3x.png"  width="50px" height="50px" alt="image"> -->
+            <div style="display: table;">
+            <h6 style="margin-top: 90px;" >{{software.name}}</h6>
+            <hr *ngIf="softwareSelectedIndex === i" style="height: 1px"  [ngStyle]="{'background-color': '#f4f4f4'}" >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="hideYieldInfo">
+    <div class="row title-block">
+      <h6 class="platform_title">{{yieldEnhancementsTitle}}</h6>
+      <h6 class="platform_seel_all_title" [hidden]="hideLatestSeeAll">{{seeAllTitle}}</h6>
+  </div>
+    
+    <div class="platforms_main" style="margin-top: 38px;padding-bottom: 70px;">
+      <div class="row" style="margin-left: 16px;margin-right: 16px;" >
+        <div class="col-md-4 softwareBlock" [ngClass]="{'yieldhighlighField': yieldEnhanceSelectedIndex === i, 'yieldhighlighFieldleave': yieldEnhanceSelectedIndex === -1}" *ngFor="let yieldEnhancment of yieldEnhancementsList.children | slice:0:3; let i=index" (mouseover)="yieldEnhancmentItemsMouseover(i,yieldEnhancment)" (mouseleave)="yieldEnhancmentItemsMouseLeave(i)" (click)="navigateToDetailsPage(yieldEnhancment.name)">
+         
+          <div  class="tile_images_block" >
+            <img [src]="yieldEnhancment.tile_image_link" style="max-height: 100%;width: 100%;"> 
+          </div>
+          <!-- <img [src]="yieldEnhancment.tile_image_link" style="display: inline"  width="60px" height="70px" alt="image"> -->
+          <!-- <img src="assets/yield_circle_image@3x.png"  width="50px" height="50px" alt="image"> -->
+          <div style="display: table;margin-top: 90px;">
+          <h6>{{yieldEnhancment.name}}</h6>
+          <hr *ngIf="yieldEnhanceSelectedIndex === i" style="height: 1px"  [ngStyle]="{'background-color': '#f4f4f4'}" >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
