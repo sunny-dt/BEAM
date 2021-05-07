@@ -23,7 +23,7 @@
     "mssql": "^4.3.0",
     "multer": "^1.4.1",
     "nodemailer": "^6.3.1",
-    "underscore": "^1.9.1",
+    "underscore": "^1.12.1",
     "uuid": "^3.3.2",
     "xml-js": "^1.6.11"
   },
